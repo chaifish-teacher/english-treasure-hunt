@@ -5,7 +5,11 @@ import {
   selectGameQuestions,
   completionPayload,
 } from "./lib/game.js";
-import { postToScoreSystem, createCompletionSaver } from "./lib/api.js";
+import {
+  createStartAttempt,
+  startGame,
+  createCompletionSaver,
+} from "./lib/api.js";
 import { playSound } from "./lib/sound.js";
 import { Icon, Explorer, IslandScene } from "./components/Art.jsx";
 import QuestionCard from "./components/QuestionCard.jsx";
@@ -65,6 +69,7 @@ export default function App() {
   const [saveStatus, setSaveStatus] = useState("idle");
   const [muted, setMuted] = useState(false);
   const starting = useRef(false);
+  const startAttempt = useRef(null);
   const completionSaver = useRef(createCompletionSaver());
   const currentPayload = useRef(null);
   const phase = state.phase;
@@ -94,7 +99,9 @@ export default function App() {
     const identity = { seatNo: seatNo.trim(), name: name.trim() };
     transition({ type: "START_REQUEST", identity });
     try {
-      const data = await postToScoreSystem({ action: "start", ...identity });
+      startAttempt.current = createStartAttempt(identity, startAttempt.current);
+      const data = await startGame(startAttempt.current);
+      startAttempt.current = null;
       transition({
         type: "START_SUCCESS",
         gameId: data.gameId,
@@ -137,6 +144,7 @@ export default function App() {
   function exit() {
     sound();
     transition({ type: "EXIT" });
+    startAttempt.current = null;
     setSeatNo("");
     setName("");
     setStartError(false);
@@ -253,7 +261,10 @@ export default function App() {
                     required
                     value={seatNo}
                     disabled={phase === "STARTING"}
-                    onChange={(e) => setSeatNo(e.target.value)}
+                    onChange={(e) => {
+                      startAttempt.current = null;
+                      setSeatNo(e.target.value);
+                    }}
                   />
                 </label>
                 <label className="form-field" htmlFor="studentName">
@@ -266,7 +277,10 @@ export default function App() {
                     required
                     value={name}
                     disabled={phase === "STARTING"}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => {
+                      startAttempt.current = null;
+                      setName(e.target.value);
+                    }}
                   />
                 </label>
                 {startError && (

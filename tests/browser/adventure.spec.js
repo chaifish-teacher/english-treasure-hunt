@@ -6,6 +6,7 @@ async function mockAPI(
   page,
   {
     failStart = false,
+    failStartCount = 0,
     invalidId = false,
     failComplete = false,
     delayStart = 0,
@@ -23,7 +24,7 @@ async function mockAPI(
     if (body.action === "start") {
       starts++;
       if (delayStart) await new Promise((r) => setTimeout(r, delayStart));
-      if (failStart && starts === 1)
+      if ((failStart && starts === 1) || starts <= failStartCount)
         return route.fulfill({ status: 503, body: "Unavailable" });
       return route.fulfill({
         json: invalidId
@@ -108,12 +109,15 @@ test("start failure and retry; no game before a valid gameId", async ({
 }) => {
   const requests = await mockAPI(page, { failStart: true });
   await login(page);
-  await expect(page.getByRole("alert")).toContainText("Unable to connect");
+  await expect(page.getByRole("status")).toContainText(
+    "Preparing your adventure",
+  );
   await expect(page.locator("fieldset")).toHaveCount(0);
-  await expect(page.getByLabel("Seat Number")).toHaveValue("12");
-  await page.getByRole("button", { name: "Retry 重新連線" }).click();
   await expect(page.locator("fieldset")).toHaveCount(5);
+  await expect(page.getByRole("alert")).toHaveCount(0);
   expect(requests.filter((r) => r.action === "start")).toHaveLength(2);
+  expect(requests[0].requestId).toBeTruthy();
+  expect(requests[1]).toEqual(requests[0]);
 });
 test("invalid ID is rejected with a friendly message", async ({ page }) => {
   await mockAPI(page, { invalidId: true });
@@ -144,6 +148,7 @@ test("required non-empty identity and rapid start taps only create one request",
   await expect(page.locator("fieldset")).toHaveCount(5);
   expect(requests).toHaveLength(1);
   expect(requests[0].seatNo).toBe("any-seat");
+  expect(requests[0].requestId).toMatch(/^[a-f0-9-]{36}$/);
 });
 test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review, Play Again and Exit", async ({
   page,
@@ -226,15 +231,26 @@ test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review
   expect(complete[1]).toEqual(complete[0]);
   await page.getByRole("button", { name: "Play Again" }).click();
   await expect(page.locator("fieldset")).toHaveCount(5);
-  expect(requests.filter((r) => r.action === "start")[1]).toEqual({
+  const starts = requests.filter((r) => r.action === "start");
+  expect(starts[1]).toEqual({
     action: "start",
     seatNo: "12",
     name: "測試冒險者",
+    requestId: expect.any(String),
   });
+  expect(starts[1].requestId).not.toBe(starts[0].requestId);
   await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
   await page.getByRole("button", { name: "Exit 登出", exact: true }).click();
   await expect(page.getByLabel("Seat Number")).toHaveValue("");
   await expect(page.getByRole("textbox", { name: /^Name/ })).toHaveValue("");
+  expect(requests.filter((r) => r.action === "complete")).toHaveLength(2);
+  await page.getByLabel("Seat Number").fill("12");
+  await page.getByRole("textbox", { name: /^Name/ }).fill("測試冒險者");
+  await page.getByRole("button", { name: "Start Adventure" }).click();
+  await expect(page.locator("fieldset")).toHaveCount(5);
+  const afterExit = requests.filter((r) => r.action === "start").at(-1);
+  expect(afterExit.requestId).not.toBe(starts[0].requestId);
+  expect(afterExit.requestId).not.toBe(starts[1].requestId);
   expect(requests.filter((r) => r.action === "complete")).toHaveLength(2);
 });
 test("perfect score skips challenge, saves exactly once under Strict Mode; no completion on rerender", async ({
@@ -289,5 +305,47 @@ for (const width of [375, 390, 430, 768, 1280]) {
       fullPage: true,
     });
     expect(errors).toEqual([]);
+  });
+}
+
+test("three failures show existing error; unchanged manual Retry reuses requestId and does not duplicate start sequences", async ({
+  page,
+}) => {
+  const requests = await mockAPI(page, { failStartCount: 3, delayStart: 100 });
+  await login(page);
+  await expect(
+    page.getByRole("button", { name: "Start Adventure" }),
+  ).toBeDisabled();
+  await expect(page.getByRole("alert")).toContainText("Unable to connect");
+  expect(requests).toHaveLength(3);
+  expect(new Set(requests.map((r) => r.requestId)).size).toBe(1);
+  await expect(page.getByLabel("Seat Number")).toHaveValue("12");
+  await page.getByRole("button", { name: "Retry 重新連線" }).evaluate((el) => {
+    el.click();
+    el.click();
+    el.click();
+  });
+  await expect(page.locator("fieldset")).toHaveCount(5);
+  expect(requests).toHaveLength(4);
+  expect(requests[3]).toEqual(requests[0]);
+});
+
+for (const field of ["seatNo", "name"]) {
+  test(`changing ${field} after failed login creates a new requestId`, async ({
+    page,
+  }) => {
+    const requests = await mockAPI(page, { failStartCount: 3 });
+    await login(page);
+    await expect(page.getByRole("alert")).toBeVisible();
+    const input =
+      field === "seatNo"
+        ? page.getByLabel("Seat Number")
+        : page.getByRole("textbox", { name: /^Name/ });
+    await input.fill(field === "seatNo" ? "13" : "新冒險者");
+    await page.getByRole("button", { name: "Retry 重新連線" }).click();
+    await expect(page.locator("fieldset")).toHaveCount(5);
+    expect(requests).toHaveLength(4);
+    expect(requests[3].requestId).not.toBe(requests[0].requestId);
+    expect(requests[3][field]).not.toBe(requests[0][field]);
   });
 }
