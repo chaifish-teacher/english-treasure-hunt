@@ -1,6 +1,12 @@
 import hints from "../data/hints.json";
 
-export default function QuestionCard({ question, number, selected, onSelect }) {
+export default function QuestionCard({
+  question,
+  number,
+  selected,
+  onSelect,
+  support = false,
+}) {
   return (
     <fieldset className="question-card" data-question-id={question.id}>
       <legend>
@@ -11,6 +17,12 @@ export default function QuestionCard({ question, number, selected, onSelect }) {
           {question.question}
         </span>
       </legend>
+      {support && (
+        <div className="checkpoint-hint" lang="zh-Hant">
+          <strong>Clearer clue 更明確的提示</strong>
+          <p>{hints[question.id].supportHint}</p>
+        </div>
+      )}
       <div className="choices">
         {question.choices.map((choice, index) => (
           <label

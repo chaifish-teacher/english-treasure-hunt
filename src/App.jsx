@@ -4,6 +4,7 @@ import {
   gameReducer,
   selectGameQuestions,
   completionPayload,
+  checkpointMistakes,
 } from "./lib/game.js";
 import {
   createStartAttempt,
@@ -152,10 +153,10 @@ export default function App() {
     currentPayload.current = null;
   }
   const isLogin = ["LOGIN", "STARTING"].includes(phase);
-  const questions = state.questions.slice(
-    state.checkpoint * 5,
-    state.checkpoint * 5 + 5,
-  );
+  const isCorrection = phase === "CHECKPOINT_RETRY";
+  const questions = isCorrection
+    ? checkpointMistakes(state)
+    : state.questions.slice(state.checkpoint * 5, state.checkpoint * 5 + 5);
   const answered = questions.filter((q) => state.answers[q.id]).length;
   const event = events[state.checkpoint];
   return (
@@ -357,7 +358,7 @@ export default function App() {
               <div className="progress-caption">
                 <span>Adventure Progress 冒險進度</span>
                 <strong>
-                  {phase === "CHECKPOINT"
+                  {phase === "CHECKPOINT" || isCorrection
                     ? (state.checkpoint + 1) * 5
                     : state.checkpoint * 5}{" "}
                   / 30
@@ -386,7 +387,78 @@ export default function App() {
                 ))}
               </ol>
             </div>
-            {phase === "CHECKPOINT" ? (
+            {isCorrection ? (
+              <section className="checkpoint-support">
+                <div className="support-intro">
+                  <span className="eyebrow">A CLEARER PATH · 一起找出方向</span>
+                  <h2>
+                    <Bilingual
+                      en="You can find the next clue!"
+                      zh="別灰心！有提示，你一定能再進一步。"
+                    />
+                  </h2>
+                  <p>
+                    <Bilingual
+                      en="These clues need another look. Try each one once more."
+                      zh="以下是這一關答錯的題目。看看更明確的提示，每題再選一次吧！"
+                    />
+                  </p>
+                  <p className="support-score-note">
+                    Learning retry · 練習修正不影響成績，成績保留第一次作答。
+                  </p>
+                </div>
+                {questions.map((q) => (
+                  <div className="correction-question" key={q.id}>
+                    <p className="correction-label">
+                      Question 題目{" "}
+                      {state.questions.findIndex((item) => item.id === q.id) +
+                        1}{" "}
+                      · 第一次答錯
+                    </p>
+                    <QuestionCard
+                      question={q}
+                      number={
+                        state.questions.findIndex((item) => item.id === q.id) +
+                        1
+                      }
+                      support
+                      selected={state.correctionDraft[q.id]}
+                      onSelect={(choiceId) => {
+                        sound();
+                        transition({
+                          type: "SELECT_CORRECTION",
+                          checkpoint: state.checkpoint,
+                          id: q.id,
+                          choiceId,
+                        });
+                      }}
+                    />
+                  </div>
+                ))}
+                <div className="continue-panel">
+                  <p>
+                    {Object.keys(state.correctionDraft).length} /{" "}
+                    {questions.length} · 已選擇修正答案
+                  </p>
+                  <ActionButton
+                    en="Save Corrections & Continue"
+                    zh="送出修正並繼續"
+                    disabled={
+                      !questions.every((q) => state.correctionDraft[q.id])
+                    }
+                    onClick={() =>
+                      advance({
+                        type: "SUBMIT_CORRECTIONS",
+                        checkpoint: state.checkpoint,
+                      })
+                    }
+                  />
+                  <small>
+                    One retry for these clues. 每題只有這一次修正機會。
+                  </small>
+                </div>
+              </section>
+            ) : phase === "CHECKPOINT" ? (
               <section className="event-card">
                 <div className="event-art">
                   <IslandScene

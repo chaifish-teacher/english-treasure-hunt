@@ -70,7 +70,7 @@ export default function ResultPage({
           ))}
         </div>
         <p className="initial-counts">
-          Answer Summary · 答題狀況{" "}
+          First Answers · 第一次答題狀況{" "}
           <span>
             Correct 答對 <b>{initial.initialCorrect}</b>
           </span>
@@ -115,7 +115,7 @@ export default function ResultPage({
         </h2>
         <p>
           All 30 clues, your answers, and explanations. 本次全部 30
-          題都在這裡；展開題目查看作答、正確答案與解析。
+          題都在這裡；答對／答錯及成績依第一次作答計算。展開查看第一次答案、關卡修正答案（若有）、正確答案與解析。
         </p>
         {state.questions.map((q, index) => (
           <details className="review-card" key={q.id} data-question-id={q.id}>
@@ -148,9 +148,27 @@ export default function ResultPage({
               </ol>
               <dl>
                 <dt>
-                  <Bilingual en="Your Answer" zh="你的答案" />
+                  <Bilingual en="Your First Answer" zh="第一次答案" />
                 </dt>
                 <dd lang="en">{answerText(q, state.answers[q.id])}</dd>
+                {state.correctionAnswers[q.id] && (
+                  <>
+                    <dt>
+                      <Bilingual en="Checkpoint Correction" zh="關卡修正答案" />
+                    </dt>
+                    <dd lang="en">
+                      {answerText(q, state.correctionAnswers[q.id])}
+                    </dd>
+                    <dt>
+                      <Bilingual en="Correction Result" zh="修正狀況" />
+                    </dt>
+                    <dd>
+                      {state.correctionAnswers[q.id] === q.correctChoiceId
+                        ? "Correct 答對"
+                        : "Incorrect 答錯"}
+                    </dd>
+                  </>
+                )}
                 <dt>
                   <Bilingual en="Correct Answer" zh="正確答案" />
                 </dt>

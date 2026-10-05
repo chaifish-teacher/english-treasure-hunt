@@ -1438,3 +1438,54 @@ footer span {
     grid-template-columns: 1fr;
   }
 }
+
+.support-intro {
+  padding: 22px;
+  margin-bottom: 22px;
+  background: #edf1df;
+  border: 1px solid #cedbc1;
+  border-radius: 16px;
+}
+.support-intro h2 {
+  font:
+    25px Georgia,
+    serif;
+  margin: 12px 0;
+}
+.support-intro h2 .bilingual > span:last-child {
+  font: 16px system-ui;
+  line-height: 1.7;
+}
+.support-intro p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.support-score-note {
+  color: #516844;
+  margin-bottom: 0;
+  font-size: 12px !important;
+}
+.correction-label {
+  font-size: 12px;
+  font-weight: 650;
+  color: #794b2d;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+.checkpoint-hint {
+  clear: both;
+  padding: 16px;
+  margin-bottom: 18px;
+  background: #f5ebcb;
+  border: 1px solid #e3cf92;
+  border-radius: 10px;
+  color: #594e2f;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.checkpoint-hint strong {
+  font-size: 12px;
+}
+.checkpoint-hint p {
+  margin: 9px 0 0;
+}

@@ -8,6 +8,7 @@ import {
   selectGameQuestions,
   shuffleQuestionChoices,
   completionPayload,
+  checkpointMistakes,
   gameReducer,
   emptyGame,
 } from "../src/lib/game.js";
@@ -126,6 +127,17 @@ function firstAttempt(wrongIndexes = []) {
   const wrongIds = new Set(wrongIndexes.map((i) => state.questions[i].id));
   for (let checkpoint = 0; checkpoint < 6; checkpoint++) {
     state = answerAndLock(state, wrongIds);
+    if (state.phase === "CHECKPOINT_RETRY") {
+      for (const q of checkpointMistakes(state)) {
+        state = gameReducer(state, {
+          type: "SELECT_CORRECTION",
+          checkpoint,
+          id: q.id,
+          choiceId: q.correctChoiceId,
+        });
+      }
+      state = gameReducer(state, { type: "SUBMIT_CORRECTIONS", checkpoint });
+    }
     assert.equal(state.phase, "CHECKPOINT");
     state = gameReducer(state, { type: "CONTINUE", checkpoint });
   }
@@ -257,5 +269,131 @@ test("Play Again clears answers and scores but retains identity for the new star
   assert.equal(state.checkpoint, 0);
   assert.equal(state.phase, "VOCABULARY");
   assert.equal(state.gameId, "new-game-id");
+  assert.deepEqual(gameReducer(state, { type: "EXIT" }), emptyGame());
+});
+
+test("every five-question checkpoint triggers correction at exactly 3, 4 or 5 mistakes, never 0–2", () => {
+  for (let checkpoint = 0; checkpoint < 6; checkpoint++) {
+    for (let count = 0; count <= 5; count++) {
+      let state = {
+        ...started(),
+        checkpoint,
+        phase: checkpoint < 4 ? "VOCABULARY" : "GRAMMAR",
+      };
+      const wrong = new Set(
+        state.questions
+          .slice(checkpoint * 5, checkpoint * 5 + count)
+          .map((q) => q.id),
+      );
+      state = answerAndLock(state, wrong);
+      assert.equal(checkpointMistakes(state).length, count);
+      assert.equal(state.phase, count >= 3 ? "CHECKPOINT_RETRY" : "CHECKPOINT");
+    }
+  }
+});
+
+test("correction locks first answers, accepts only current missed questions, requires all answers, and allows one retry", () => {
+  let state = started();
+  const wrong = new Set(state.questions.slice(0, 3).map((q) => q.id));
+  state = answerAndLock(state, wrong);
+  const firstAnswers = { ...state.answers };
+  assert.equal(gameReducer(state, { type: "CONTINUE", checkpoint: 0 }), state);
+  assert.equal(
+    gameReducer(state, { type: "SUBMIT_CORRECTIONS", checkpoint: 0 }),
+    state,
+  );
+  const q = state.questions[0];
+  for (const action of [
+    { type: "SELECT", id: q.id, choiceId: q.correctChoiceId },
+    {
+      type: "SELECT_CORRECTION",
+      checkpoint: 0,
+      id: state.questions[4].id,
+      choiceId: state.questions[4].correctChoiceId,
+    },
+    {
+      type: "SELECT_CORRECTION",
+      checkpoint: 1,
+      id: q.id,
+      choiceId: q.correctChoiceId,
+    },
+    { type: "SELECT_CORRECTION", checkpoint: 0, id: q.id, choiceId: "invalid" },
+  ])
+    assert.equal(gameReducer(state, action), state);
+  for (const missed of checkpointMistakes(state)) {
+    state = gameReducer(state, {
+      type: "SELECT_CORRECTION",
+      checkpoint: 0,
+      id: missed.id,
+      choiceId: missed.correctChoiceId,
+    });
+  }
+  const submitted = gameReducer(state, {
+    type: "SUBMIT_CORRECTIONS",
+    checkpoint: 0,
+  });
+  assert.equal(submitted.phase, "CHECKPOINT");
+  assert.deepEqual(submitted.answers, firstAnswers);
+  assert.equal(Object.keys(submitted.correctionAnswers).length, 3);
+  assert.deepEqual(submitted.correctionDraft, {});
+  assert.equal(
+    gameReducer(submitted, { type: "SUBMIT_CORRECTIONS", checkpoint: 0 }),
+    submitted,
+  );
+  assert.equal(
+    gameReducer(submitted, {
+      type: "SELECT_CORRECTION",
+      checkpoint: 0,
+      id: q.id,
+      choiceId: q.correctChoiceId,
+    }),
+    submitted,
+  );
+  const next = gameReducer(submitted, { type: "CONTINUE", checkpoint: 0 });
+  assert.equal(next.checkpoint, 1);
+  assert.deepEqual(next.correctionAnswers, submitted.correctionAnswers);
+});
+
+test("a still-wrong correction is accepted once without another correction round or extra points", () => {
+  let state = started();
+  state = answerAndLock(
+    state,
+    new Set(state.questions.slice(0, 5).map((q) => q.id)),
+  );
+  for (const q of checkpointMistakes(state)) {
+    state = gameReducer(state, {
+      type: "SELECT_CORRECTION",
+      checkpoint: 0,
+      id: q.id,
+      choiceId: state.answers[q.id],
+    });
+  }
+  state = gameReducer(state, { type: "SUBMIT_CORRECTIONS", checkpoint: 0 });
+  assert.equal(state.phase, "CHECKPOINT");
+  assert.equal(checkpointMistakes(state).length, 5);
+  assert.equal(
+    gameReducer(state, { type: "LOCK_CHECKPOINT", checkpoint: 0 }),
+    state,
+  );
+});
+
+test("successful corrections on all six checkpoints never change original scores or completion payload", () => {
+  const state = firstAttempt(Array.from({ length: 30 }, (_, i) => i));
+  assert.equal(state.phase, "FINAL_RESULT");
+  assert.equal(Object.keys(state.correctionAnswers).length, 30);
+  assert.ok(
+    state.questions.every(
+      (q) => state.correctionAnswers[q.id] === q.correctChoiceId,
+    ),
+  );
+  assert.equal(completionPayload(state).initialScore, "0/30");
+  assert.equal(completionPayload(state).finalMasteryScore, "0/30");
+  assert.equal(completionPayload(state).mistakeCount, 30);
+  const restarted = gameReducer(state, {
+    type: "START_REQUEST",
+    identity: state.identity,
+  });
+  assert.deepEqual(restarted.correctionAnswers, {});
+  assert.deepEqual(restarted.correctionDraft, {});
   assert.deepEqual(gameReducer(state, { type: "EXIT" }), emptyGame());
 });

@@ -10,6 +10,8 @@ test("all 80 approved questions have a Chinese hint separate from final explanat
   );
   for (const q of questionBank) {
     assert.match(hints[q.id].hint, /[\u4e00-\u9fff]/);
+    assert.match(hints[q.id].supportHint, /[\u4e00-\u9fff]/);
+    assert.notEqual(hints[q.id].supportHint, hints[q.id].hint);
     assert.notEqual(hints[q.id].hint, q.explanation);
     assert.ok(
       !hints[q.id].hint

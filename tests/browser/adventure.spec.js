@@ -89,6 +89,34 @@ async function mainAdventure(page, wrongIndexes = new Set()) {
     await assertNoOverflow(page);
     await expect(continueButton).toBeEnabled();
     await continueButton.click();
+    const wrongThisCheckpoint = Array.from(
+      { length: 5 },
+      (_, i) => checkpoint * 5 + i,
+    ).filter((i) => wrongIndexes.has(i));
+    if (wrongThisCheckpoint.length >= 3) {
+      await expect(
+        page.getByRole("heading", { name: "You can find the next clue!" }),
+      ).toBeVisible();
+      await expect(page.locator("fieldset")).toHaveCount(
+        wrongThisCheckpoint.length,
+      );
+      const correctionButton = page.getByRole("button", {
+        name: "Save Corrections & Continue",
+      });
+      await expect(correctionButton).toBeDisabled();
+      for (let i = 0; i < wrongThisCheckpoint.length; i++) {
+        const card = page.locator("fieldset").nth(i);
+        expect(Number(await card.getAttribute("data-question-id"))).toBe(
+          chosen[wrongThisCheckpoint[i]],
+        );
+        await expect(card.locator(".checkpoint-hint")).toBeVisible();
+        await choose(page, card, true);
+      }
+      await correctionButton.evaluate((el) => {
+        el.click();
+        el.click();
+      });
+    }
     await expect(page.locator("fieldset")).toHaveCount(0);
     const eventNames = [
       "Treasure Map Fragment",
@@ -192,15 +220,23 @@ test("full adventure goes straight to all-answer review; failed save retries sam
       : q.choices.find((c) => c.id === q.correctChoiceId);
     const answers = card.locator("dd");
     await expect(answers.nth(0)).toHaveText(expectedChoice.text);
-    await expect(answers.nth(1)).toHaveText(
+    await expect(card.locator("dd.answer-reveal")).toHaveText(
       q.choices.find((c) => c.id === q.correctChoiceId).text,
     );
+    if (wrongIndexes.has(i)) {
+      await expect(card).toContainText("Checkpoint Correction");
+      await expect(answers.nth(1)).toHaveText(
+        q.choices.find((c) => c.id === q.correctChoiceId).text,
+      );
+    }
     await expect(card.locator(".review-choices li")).toHaveCount(4);
     await expect(card.locator(".explanation")).toContainText(q.explanation);
     await card.locator("summary").click();
   }
   await page.locator("details summary").first().click();
-  await expect(page.locator("details[open]")).toContainText("Your Answer");
+  await expect(page.locator("details[open]")).toContainText(
+    "Your First Answer",
+  );
   await expect(page.locator("details[open]")).toContainText("Correct Answer");
   await expect(page.locator("details[open]")).toContainText("解析");
   for (const width of [375, 390, 430, 768, 1280]) {
@@ -390,3 +426,104 @@ for (const width of [375, 390, 430]) {
     });
   });
 }
+
+for (const [width, wrongCount] of [
+  [375, 3],
+  [390, 4],
+  [430, 5],
+]) {
+  test(`${wrongCount} mistakes trigger one encouraged checkpoint retry at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 844 });
+    const requests = await mockAPI(page);
+    await login(page);
+    const ids = [];
+    for (let i = 0; i < 5; i++) {
+      const card = page.locator("fieldset").nth(i);
+      ids.push(Number(await card.getAttribute("data-question-id")));
+      await choose(page, card, i >= wrongCount);
+    }
+    await page.getByRole("button", { name: "Continue Adventure" }).click();
+    await expect(
+      page.getByRole("heading", { name: "You can find the next clue!" }),
+    ).toBeVisible();
+    await expect(page.locator(".support-intro")).toContainText(
+      "成績保留第一次作答",
+    );
+    await expect(page.locator("fieldset")).toHaveCount(wrongCount);
+    await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
+    const submit = page.getByRole("button", {
+      name: "Save Corrections & Continue",
+    });
+    await expect(submit).toBeDisabled();
+    for (let i = 0; i < wrongCount; i++) {
+      const card = page.locator("fieldset").nth(i);
+      expect(Number(await card.getAttribute("data-question-id"))).toBe(ids[i]);
+      await expect(card.locator(".checkpoint-hint")).toContainText(
+        hints[ids[i]].supportHint,
+      );
+      await choose(page, card, false);
+      if (i < wrongCount - 1) await expect(submit).toBeDisabled();
+    }
+    await assertNoOverflow(page);
+    await page.screenshot({
+      path: `test-results/checkpoint-correction-${width}.png`,
+      fullPage: true,
+    });
+    await submit.evaluate((el) => {
+      el.click();
+      el.click();
+    });
+    await expect(
+      page.getByRole("heading", { name: "Treasure Map Fragment" }),
+    ).toBeVisible();
+    await expect(page.locator("fieldset")).toHaveCount(0);
+    await page.getByRole("button", { name: "Continue Adventure" }).click();
+    await expect(page.locator("fieldset")).toHaveCount(5);
+    await expect(page.locator(".checkpoint-support")).toHaveCount(0);
+    await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
+    expect(requests.filter((r) => r.action === "complete")).toHaveLength(0);
+  });
+}
+
+test("two checkpoint mistakes advance without disclosing missed clues or requesting corrections", async ({
+  page,
+}) => {
+  await mockAPI(page);
+  await login(page);
+  for (let i = 0; i < 5; i++)
+    await choose(page, page.locator("fieldset").nth(i), i >= 2);
+  await page.getByRole("button", { name: "Continue Adventure" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Treasure Map Fragment" }),
+  ).toBeVisible();
+  await expect(page.locator(".checkpoint-support")).toHaveCount(0);
+  await expect(page.locator(".answer-status")).toHaveCount(0);
+});
+
+test("three mistakes on the last checkpoint are corrected before the single original-score completion", async ({
+  page,
+}) => {
+  const requests = await mockAPI(page);
+  await login(page);
+  await mainAdventure(page, new Set([27, 28, 29]));
+  await expect(
+    page.getByRole("heading", { name: "Adventure Complete!" }),
+  ).toBeVisible();
+  await expect(page.getByRole("status")).toContainText(
+    "Your result has been saved.",
+  );
+  await expect(page.getByTestId("mastery")).toHaveText("27/30");
+  await expect(page.locator("details.review-card")).toHaveCount(30);
+  await expect(page.locator(".answer-status.incorrect")).toHaveCount(3);
+  const completes = requests.filter((r) => r.action === "complete");
+  expect(completes).toHaveLength(1);
+  expect(completes[0].grammarScore).toBe("7/10");
+  expect(completes[0].initialScore).toBe("27/30");
+  expect(completes[0].finalMasteryScore).toBe("27/30");
+  const corrected = page.locator("details.review-card").nth(27);
+  await corrected.locator("summary").click();
+  await expect(corrected).toContainText("Checkpoint Correction");
+  await expect(corrected).toContainText("Correction Result");
+});

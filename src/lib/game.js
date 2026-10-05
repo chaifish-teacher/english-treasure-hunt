@@ -57,6 +57,11 @@ export function calculateInitialScores(questions, answers) {
     mistakes,
   };
 }
+export function checkpointMistakes(state) {
+  return state.questions
+    .slice(state.checkpoint * 5, state.checkpoint * 5 + 5)
+    .filter((q) => state.answers[q.id] !== q.correctChoiceId);
+}
 export function completionPayload(state) {
   const initial = calculateInitialScores(state.questions, state.answers);
   return {
@@ -79,6 +84,8 @@ export function emptyGame() {
     questions: [],
     answers: {},
     checkpoint: 0,
+    correctionDraft: {},
+    correctionAnswers: {},
   };
 }
 export function gameReducer(state, action) {
@@ -126,7 +133,46 @@ export function gameReducer(state, action) {
       );
       if (current.length !== 5 || !current.every((q) => state.answers[q.id]))
         return state;
-      return { ...state, phase: "CHECKPOINT" };
+      return {
+        ...state,
+        phase:
+          checkpointMistakes(state).length >= 3
+            ? "CHECKPOINT_RETRY"
+            : "CHECKPOINT",
+        correctionDraft: {},
+      };
+    }
+    case "SELECT_CORRECTION": {
+      if (
+        state.phase !== "CHECKPOINT_RETRY" ||
+        action.checkpoint !== state.checkpoint
+      )
+        return state;
+      const q = checkpointMistakes(state).find((q) => q.id === action.id);
+      if (!q?.choices.some((c) => c.id === action.choiceId)) return state;
+      return {
+        ...state,
+        correctionDraft: { ...state.correctionDraft, [q.id]: action.choiceId },
+      };
+    }
+    case "SUBMIT_CORRECTIONS": {
+      if (
+        state.phase !== "CHECKPOINT_RETRY" ||
+        action.checkpoint !== state.checkpoint
+      )
+        return state;
+      if (!checkpointMistakes(state).every((q) => state.correctionDraft[q.id]))
+        return state;
+      // Original answers stay locked; this one educational retry never changes scores.
+      return {
+        ...state,
+        phase: "CHECKPOINT",
+        correctionAnswers: {
+          ...state.correctionAnswers,
+          ...state.correctionDraft,
+        },
+        correctionDraft: {},
+      };
     }
     case "CONTINUE": {
       if (
