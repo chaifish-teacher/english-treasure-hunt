@@ -1339,3 +1339,46 @@ footer span {
   color: #62765b;
   margin-bottom: 5px;
 }
+
+.question-hint {
+  clear: both;
+  margin-top: 16px;
+  border: 1px solid #dbe1cd;
+  border-radius: 10px;
+  background: #f3f5e9;
+}
+.question-hint summary {
+  cursor: pointer;
+  min-height: 46px;
+  padding: 13px 15px;
+  color: #3c6048;
+  font-size: 13px;
+  font-weight: 650;
+}
+.question-hint summary span {
+  float: right;
+}
+.hint-content {
+  padding: 0 15px 15px;
+  color: #425b42;
+  font-size: 14px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.hint-content p {
+  margin: 4px 0 0;
+}
+.hint-translation {
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid #dbe1cd;
+}
+.hint-translation strong {
+  font-size: 12px;
+}
+.hint-translation small {
+  display: block;
+  font-size: 11px;
+  margin-top: 8px;
+  color: #5d7059;
+}

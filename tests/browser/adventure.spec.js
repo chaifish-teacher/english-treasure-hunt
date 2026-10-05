@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import questions from "../../src/data/questions.json" with { type: "json" };
+import hints from "../../src/data/hints.json" with { type: "json" };
 import { GAS_API_URL } from "../../src/config.js";
 const bank = new Map(questions.map((q) => [q.id, q]));
 async function mockAPI(
@@ -65,6 +66,12 @@ async function mainAdventure(page, wrongIndexes = new Set()) {
   for (let checkpoint = 0; checkpoint < 6; checkpoint++) {
     const cards = page.locator("fieldset.question-card");
     await expect(cards).toHaveCount(5);
+    const hintId = Number(await cards.first().getAttribute("data-question-id"));
+    await cards.first().locator("summary").click();
+    await expect(cards.first().locator(".hint-content")).toContainText(
+      hints[hintId].hint,
+    );
+    await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
     const continueButton = page.getByRole("button", {
       name: "Continue Adventure",
     });
@@ -171,6 +178,13 @@ test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review
     expect(Number(await card.getAttribute("data-question-id"))).toBe(
       expectedWrongIds[i],
     );
+    await expect(card.locator("details.question-hint")).toHaveCount(1);
+    if (i === 0) {
+      await card.getByText("Hint 提示", { exact: false }).click();
+      await expect(card.locator(".hint-content")).toContainText(
+        hints[expectedWrongIds[i]].hint,
+      );
+    }
     const submit = page.getByRole("button", { name: "Submit & Continue" });
     await expect(submit).toBeDisabled();
     await choose(page, card, i < 5);
@@ -347,5 +361,44 @@ for (const field of ["seatNo", "name"]) {
     expect(requests).toHaveLength(4);
     expect(requests[3].requestId).not.toBe(requests[0].requestId);
     expect(requests[3][field]).not.toBe(requests[0][field]);
+  });
+}
+
+for (const width of [375, 390, 430]) {
+  test(`question hints and translations expand accessibly at ${width}px without selecting an answer`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await mockAPI(page);
+    await login(page);
+    const cards = page.locator("fieldset.question-card");
+    await expect(cards).toHaveCount(5);
+    await expect(page.locator("details.question-hint[open]")).toHaveCount(0);
+    for (let i = 0; i < 5; i++) {
+      const card = cards.nth(i);
+      const id = Number(await card.getAttribute("data-question-id"));
+      const summary = card.locator("summary");
+      await summary.focus();
+      await page.keyboard.press("Enter");
+      await expect(card.locator(".hint-content")).toBeVisible();
+      await expect(card.locator(".hint-content")).toContainText(hints[id].hint);
+      await expect(card.locator(".hint-translation")).toContainText(
+        hints[id].translation,
+      );
+      await assertNoOverflow(page);
+    }
+    await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
+    await expect(
+      page.getByRole("button", { name: "Continue Adventure" }),
+    ).toBeDisabled();
+    await choose(page, cards.first(), true);
+    await cards.first().locator("summary").click();
+    await expect(
+      cards.first().getByRole("radio", { checked: true }),
+    ).toHaveCount(1);
+    await page.screenshot({
+      path: `test-results/hints-${width}.png`,
+      fullPage: true,
+    });
   });
 }

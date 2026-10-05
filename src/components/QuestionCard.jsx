@@ -1,3 +1,5 @@
+import hints from "../data/hints.json";
+
 export default function QuestionCard({ question, number, selected, onSelect }) {
   return (
     <fieldset className="question-card" data-question-id={question.id}>
@@ -30,6 +32,23 @@ export default function QuestionCard({ question, number, selected, onSelect }) {
           </label>
         ))}
       </div>
+      <details className="question-hint">
+        <summary>
+          Hint 提示 <span aria-hidden="true">✧</span>
+        </summary>
+        <div className="hint-content" lang="zh-Hant">
+          <p>{hints[question.id].hint}</p>
+          {hints[question.id].translation && (
+            <div className="hint-translation">
+              <strong>Sentence meaning 題目翻譯</strong>
+              <p>{hints[question.id].translation}</p>
+              {question.question.includes("______") && (
+                <small>填空處保留空格，請自行判斷選項。</small>
+              )}
+            </div>
+          )}
+        </div>
+      </details>
     </fieldset>
   );
 }
