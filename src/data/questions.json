@@ -1,0 +1,2082 @@
+[
+  {
+    "id": 1,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Residents of big cities usually have to face the problems of dirty air, loud noises, and heavy traffic.",
+    "choices": [
+      {
+        "id": "q1-a",
+        "text": "Residents"
+      },
+      {
+        "id": "q1-b",
+        "text": "Facilities"
+      },
+      {
+        "id": "q1-c",
+        "text": "Concepts"
+      },
+      {
+        "id": "q1-d",
+        "text": "Routes"
+      }
+    ],
+    "correctChoiceId": "q1-a",
+    "explanation": "resident＝居民。句意為大城市居民面對空氣污染、噪音及交通問題。"
+  },
+  {
+    "id": 2,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "The ______ of mindfulness can make a significant difference in people's lives.",
+    "choices": [
+      {
+        "id": "q2-a",
+        "text": "resident"
+      },
+      {
+        "id": "q2-b",
+        "text": "concept"
+      },
+      {
+        "id": "q2-c",
+        "text": "vision"
+      },
+      {
+        "id": "q2-d",
+        "text": "emergency"
+      }
+    ],
+    "correctChoiceId": "q2-b",
+    "explanation": "concept＝概念、觀念；the concept of mindfulness＝正念的概念。"
+  },
+  {
+    "id": 3,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Martin Luther King's major goal was to achieve ______ rights for African Americans.",
+    "choices": [
+      {
+        "id": "q3-a",
+        "text": "equal"
+      },
+      {
+        "id": "q3-b",
+        "text": "remote"
+      },
+      {
+        "id": "q3-c",
+        "text": "crucial"
+      },
+      {
+        "id": "q3-d",
+        "text": "vital"
+      }
+    ],
+    "correctChoiceId": "q3-a",
+    "explanation": "equal rights＝平等的權利。"
+  },
+  {
+    "id": 4,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Before baking a cake, Lewis ______ a recipe book.",
+    "choices": [
+      {
+        "id": "q4-a",
+        "text": "evolved"
+      },
+      {
+        "id": "q4-b",
+        "text": "consulted"
+      },
+      {
+        "id": "q4-c",
+        "text": "distributed"
+      },
+      {
+        "id": "q4-d",
+        "text": "established"
+      }
+    ],
+    "correctChoiceId": "q4-b",
+    "explanation": "consult 可表示查閱資料或諮詢；此處為查閱食譜。"
+  },
+  {
+    "id": 5,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "The new rules for the game are ______ what we agreed on earlier.",
+    "choices": [
+      {
+        "id": "q5-a",
+        "text": "in line with"
+      },
+      {
+        "id": "q5-b",
+        "text": "in terms of"
+      },
+      {
+        "id": "q5-c",
+        "text": "in turn"
+      },
+      {
+        "id": "q5-d",
+        "text": "in danger of"
+      }
+    ],
+    "correctChoiceId": "q5-a",
+    "explanation": "in line with＝與……一致、符合。"
+  },
+  {
+    "id": 6,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Even though Michael knows that smoking is a ______ to his health, he finds it hard to quit.",
+    "choices": [
+      {
+        "id": "q6-a",
+        "text": "danger"
+      },
+      {
+        "id": "q6-b",
+        "text": "term"
+      },
+      {
+        "id": "q6-c",
+        "text": "prompt"
+      },
+      {
+        "id": "q6-d",
+        "text": "journey"
+      }
+    ],
+    "correctChoiceId": "q6-a",
+    "explanation": "a danger to...＝對……的危險／威脅。"
+  },
+  {
+    "id": 7,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Grace wrote an email of complaint to the department store and got an ______ response.",
+    "choices": [
+      {
+        "id": "q7-a",
+        "text": "instant"
+      },
+      {
+        "id": "q7-b",
+        "text": "conventional"
+      },
+      {
+        "id": "q7-c",
+        "text": "secure"
+      },
+      {
+        "id": "q7-d",
+        "text": "rapid"
+      }
+    ],
+    "correctChoiceId": "q7-a",
+    "explanation": "instant＝立即的、即時的；instant response＝立即回覆。"
+  },
+  {
+    "id": 8,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Water samples from various regions were ______ for harmful chemicals.",
+    "choices": [
+      {
+        "id": "q8-a",
+        "text": "transformed"
+      },
+      {
+        "id": "q8-b",
+        "text": "acquired"
+      },
+      {
+        "id": "q8-c",
+        "text": "analyzed"
+      },
+      {
+        "id": "q8-d",
+        "text": "ignored"
+      }
+    ],
+    "correctChoiceId": "q8-c",
+    "explanation": "analyze＝分析；此處使用被動 were analyzed。"
+  },
+  {
+    "id": 9,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Tony ______ the “Quiet Please” sign in the library and talked loudly on his phone. As a result, he was scolded by the librarian.",
+    "choices": [
+      {
+        "id": "q9-a",
+        "text": "transformed"
+      },
+      {
+        "id": "q9-b",
+        "text": "assisted"
+      },
+      {
+        "id": "q9-c",
+        "text": "analyzed"
+      },
+      {
+        "id": "q9-d",
+        "text": "ignored"
+      }
+    ],
+    "correctChoiceId": "q9-d",
+    "explanation": "ignore＝忽視、不理會。"
+  },
+  {
+    "id": 10,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Walt really wants to become a professional dancer, so he practices his dance moves ______.",
+    "choices": [
+      {
+        "id": "q10-a",
+        "text": "ever since"
+      },
+      {
+        "id": "q10-b",
+        "text": "around the clock"
+      },
+      {
+        "id": "q10-c",
+        "text": "all in all"
+      },
+      {
+        "id": "q10-d",
+        "text": "in turn"
+      }
+    ],
+    "correctChoiceId": "q10-b",
+    "explanation": "around the clock＝日以繼夜、全天候地。"
+  },
+  {
+    "id": 11,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Growing up in a religious family, Melissa developed a ______ belief in God.",
+    "choices": [
+      {
+        "id": "q11-a",
+        "text": "potential"
+      },
+      {
+        "id": "q11-b",
+        "text": "firm"
+      },
+      {
+        "id": "q11-c",
+        "text": "female"
+      },
+      {
+        "id": "q11-d",
+        "text": "ultimate"
+      }
+    ],
+    "correctChoiceId": "q11-b",
+    "explanation": "firm belief＝堅定的信念。"
+  },
+  {
+    "id": 12,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "In the United States, a person can be ______ to the Office of the President twice, and each term lasts four years.",
+    "choices": [
+      {
+        "id": "q12-a",
+        "text": "involved"
+      },
+      {
+        "id": "q12-b",
+        "text": "overcome"
+      },
+      {
+        "id": "q12-c",
+        "text": "elected"
+      },
+      {
+        "id": "q12-d",
+        "text": "permitted"
+      }
+    ],
+    "correctChoiceId": "q12-c",
+    "explanation": "elect＝選舉；be elected to an office＝被選舉擔任某職位。"
+  },
+  {
+    "id": 13,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "The school swim team is ______ to use the pool after school to practice for the National High School Games.",
+    "choices": [
+      {
+        "id": "q13-a",
+        "text": "served"
+      },
+      {
+        "id": "q13-b",
+        "text": "imposed"
+      },
+      {
+        "id": "q13-c",
+        "text": "permitted"
+      },
+      {
+        "id": "q13-d",
+        "text": "praised"
+      }
+    ],
+    "correctChoiceId": "q13-c",
+    "explanation": "be permitted to V＝被允許做某事。"
+  },
+  {
+    "id": 14,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "The club only accepts ______ members, so men are not allowed to join it.",
+    "choices": [
+      {
+        "id": "q14-a",
+        "text": "firm"
+      },
+      {
+        "id": "q14-b",
+        "text": "female"
+      },
+      {
+        "id": "q14-c",
+        "text": "ultimate"
+      },
+      {
+        "id": "q14-d",
+        "text": "ongoing"
+      }
+    ],
+    "correctChoiceId": "q14-b",
+    "explanation": "female＝女性的；female members＝女性會員。"
+  },
+  {
+    "id": 15,
+    "category": "vocabulary",
+    "sourceType": "original",
+    "question": "Tom ______ his little sister and argued with several kids when she was being teased at the playground.",
+    "choices": [
+      {
+        "id": "q15-a",
+        "text": "stood up for"
+      },
+      {
+        "id": "q15-b",
+        "text": "gave in to"
+      },
+      {
+        "id": "q15-c",
+        "text": "spoke up for"
+      },
+      {
+        "id": "q15-d",
+        "text": "gave voice to"
+      }
+    ],
+    "correctChoiceId": "q15-a",
+    "explanation": "stand up for＝挺身維護、捍衛。"
+  },
+  {
+    "id": 16,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Local ______ were asked to stay indoors because of the heavy smoke from the factory.",
+    "choices": [
+      {
+        "id": "q16-a",
+        "text": "residents"
+      },
+      {
+        "id": "q16-b",
+        "text": "concepts"
+      },
+      {
+        "id": "q16-c",
+        "text": "facilities"
+      },
+      {
+        "id": "q16-d",
+        "text": "routes"
+      }
+    ],
+    "correctChoiceId": "q16-a",
+    "explanation": "residents＝居民。"
+  },
+  {
+    "id": 17,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "The basic ______ behind this project is to turn waste into useful products.",
+    "choices": [
+      {
+        "id": "q17-a",
+        "text": "emergency"
+      },
+      {
+        "id": "q17-b",
+        "text": "concept"
+      },
+      {
+        "id": "q17-c",
+        "text": "resident"
+      },
+      {
+        "id": "q17-d",
+        "text": "route"
+      }
+    ],
+    "correctChoiceId": "q17-b",
+    "explanation": "concept＝概念、理念；the concept behind...＝……背後的理念。"
+  },
+  {
+    "id": 18,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Every student should have an ______ opportunity to take part in school activities.",
+    "choices": [
+      {
+        "id": "q18-a",
+        "text": "remote"
+      },
+      {
+        "id": "q18-b",
+        "text": "crucial"
+      },
+      {
+        "id": "q18-c",
+        "text": "equal"
+      },
+      {
+        "id": "q18-d",
+        "text": "instant"
+      }
+    ],
+    "correctChoiceId": "q18-c",
+    "explanation": "equal opportunity＝平等的機會。"
+  },
+  {
+    "id": 19,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Before buying the medicine, Amy ______ her doctor about its possible side effects.",
+    "choices": [
+      {
+        "id": "q19-a",
+        "text": "established"
+      },
+      {
+        "id": "q19-b",
+        "text": "distributed"
+      },
+      {
+        "id": "q19-c",
+        "text": "consulted"
+      },
+      {
+        "id": "q19-d",
+        "text": "evolved"
+      }
+    ],
+    "correctChoiceId": "q19-c",
+    "explanation": "consult someone about something＝就某事諮詢某人。"
+  },
+  {
+    "id": 20,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "The company's new environmental policy is ______ its goal of reducing plastic waste.",
+    "choices": [
+      {
+        "id": "q20-a",
+        "text": "in turn"
+      },
+      {
+        "id": "q20-b",
+        "text": "in danger of"
+      },
+      {
+        "id": "q20-c",
+        "text": "in terms of"
+      },
+      {
+        "id": "q20-d",
+        "text": "in line with"
+      }
+    ],
+    "correctChoiceId": "q20-d",
+    "explanation": "in line with＝與……一致／符合。"
+  },
+  {
+    "id": 21,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Driving too fast can put both yourself and other people in ______.",
+    "choices": [
+      {
+        "id": "q21-a",
+        "text": "danger"
+      },
+      {
+        "id": "q21-b",
+        "text": "concept"
+      },
+      {
+        "id": "q21-c",
+        "text": "journey"
+      },
+      {
+        "id": "q21-d",
+        "text": "term"
+      }
+    ],
+    "correctChoiceId": "q21-a",
+    "explanation": "in danger＝處於危險中。"
+  },
+  {
+    "id": 22,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Thanks to modern technology, people can now get almost ______ access to information.",
+    "choices": [
+      {
+        "id": "q22-a",
+        "text": "conventional"
+      },
+      {
+        "id": "q22-b",
+        "text": "secure"
+      },
+      {
+        "id": "q22-c",
+        "text": "instant"
+      },
+      {
+        "id": "q22-d",
+        "text": "remote"
+      }
+    ],
+    "correctChoiceId": "q22-c",
+    "explanation": "instant access＝即時取得／立即存取。"
+  },
+  {
+    "id": 23,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Scientists carefully ______ the data before they announced the results of their study.",
+    "choices": [
+      {
+        "id": "q23-a",
+        "text": "ignored"
+      },
+      {
+        "id": "q23-b",
+        "text": "acquired"
+      },
+      {
+        "id": "q23-c",
+        "text": "transformed"
+      },
+      {
+        "id": "q23-d",
+        "text": "analyzed"
+      }
+    ],
+    "correctChoiceId": "q23-d",
+    "explanation": "analyze data＝分析資料。"
+  },
+  {
+    "id": 24,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Kevin ______ his mother's warning and went swimming during the storm.",
+    "choices": [
+      {
+        "id": "q24-a",
+        "text": "assisted"
+      },
+      {
+        "id": "q24-b",
+        "text": "ignored"
+      },
+      {
+        "id": "q24-c",
+        "text": "analyzed"
+      },
+      {
+        "id": "q24-d",
+        "text": "transformed"
+      }
+    ],
+    "correctChoiceId": "q24-b",
+    "explanation": "ignore a warning＝忽視警告。"
+  },
+  {
+    "id": 25,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Doctors and nurses at the emergency center work ______ to care for patients.",
+    "choices": [
+      {
+        "id": "q25-a",
+        "text": "all in all"
+      },
+      {
+        "id": "q25-b",
+        "text": "ever since"
+      },
+      {
+        "id": "q25-c",
+        "text": "around the clock"
+      },
+      {
+        "id": "q25-d",
+        "text": "in turn"
+      }
+    ],
+    "correctChoiceId": "q25-c",
+    "explanation": "around the clock＝24小時不停地、日以繼夜地。"
+  },
+  {
+    "id": 26,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Even when everyone disagreed with her, Tina remained ______ in her belief that she had made the right decision.",
+    "choices": [
+      {
+        "id": "q26-a",
+        "text": "female"
+      },
+      {
+        "id": "q26-b",
+        "text": "potential"
+      },
+      {
+        "id": "q26-c",
+        "text": "firm"
+      },
+      {
+        "id": "q26-d",
+        "text": "ongoing"
+      }
+    ],
+    "correctChoiceId": "q26-c",
+    "explanation": "remain firm in one's belief＝對自己的信念保持堅定。"
+  },
+  {
+    "id": 27,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "The people of the country ______ a new president last month.",
+    "choices": [
+      {
+        "id": "q27-a",
+        "text": "permitted"
+      },
+      {
+        "id": "q27-b",
+        "text": "involved"
+      },
+      {
+        "id": "q27-c",
+        "text": "elected"
+      },
+      {
+        "id": "q27-d",
+        "text": "imposed"
+      }
+    ],
+    "correctChoiceId": "q27-c",
+    "explanation": "elect a president＝選出總統；last month 使用過去式 elected。"
+  },
+  {
+    "id": 28,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Visitors are not ______ to take photographs inside this museum.",
+    "choices": [
+      {
+        "id": "q28-a",
+        "text": "praised"
+      },
+      {
+        "id": "q28-b",
+        "text": "served"
+      },
+      {
+        "id": "q28-c",
+        "text": "elected"
+      },
+      {
+        "id": "q28-d",
+        "text": "permitted"
+      }
+    ],
+    "correctChoiceId": "q28-d",
+    "explanation": "be permitted to V＝被允許做某事；not permitted 表示禁止。"
+  },
+  {
+    "id": 29,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "The survey found that ______ workers made up more than half of the company's employees.",
+    "choices": [
+      {
+        "id": "q29-a",
+        "text": "ultimate"
+      },
+      {
+        "id": "q29-b",
+        "text": "female"
+      },
+      {
+        "id": "q29-c",
+        "text": "firm"
+      },
+      {
+        "id": "q29-d",
+        "text": "ongoing"
+      }
+    ],
+    "correctChoiceId": "q29-b",
+    "explanation": "female workers＝女性員工。"
+  },
+  {
+    "id": 30,
+    "category": "vocabulary",
+    "sourceType": "new",
+    "question": "Jason always ______ his classmates when he sees someone treating them unfairly.",
+    "choices": [
+      {
+        "id": "q30-a",
+        "text": "gives in to"
+      },
+      {
+        "id": "q30-b",
+        "text": "stands up for"
+      },
+      {
+        "id": "q30-c",
+        "text": "turns away from"
+      },
+      {
+        "id": "q30-d",
+        "text": "looks down on"
+      }
+    ],
+    "correctChoiceId": "q30-b",
+    "explanation": "stand up for someone＝挺身維護某人。"
+  },
+  {
+    "id": 31,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It was not very polite ______ Kevin to shout at the waiter like that.",
+    "choices": [
+      {
+        "id": "q31-a",
+        "text": "with"
+      },
+      {
+        "id": "q31-b",
+        "text": "in"
+      },
+      {
+        "id": "q31-c",
+        "text": "at"
+      },
+      {
+        "id": "q31-d",
+        "text": "of"
+      }
+    ],
+    "correctChoiceId": "q31-d",
+    "explanation": "It is/was + adj. + of + 人 + to V，用來評價人的行為或品格；polite 描述 Kevin 的行為，因此使用 of。"
+  },
+  {
+    "id": 32,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It is the caretaker's voice and the rhythm and melody of the music ______ babies respond to, not the content of the song.",
+    "choices": [
+      {
+        "id": "q32-a",
+        "text": "that"
+      },
+      {
+        "id": "q32-b",
+        "text": "who"
+      },
+      {
+        "id": "q32-c",
+        "text": "what"
+      },
+      {
+        "id": "q32-d",
+        "text": "when"
+      }
+    ],
+    "correctChoiceId": "q32-a",
+    "explanation": "強調句型 It is/was + 被強調部分 + that...。"
+  },
+  {
+    "id": 33,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It has been many years ______ I last saw him.",
+    "choices": [
+      {
+        "id": "q33-a",
+        "text": "since"
+      },
+      {
+        "id": "q33-b",
+        "text": "after"
+      },
+      {
+        "id": "q33-c",
+        "text": "that"
+      },
+      {
+        "id": "q33-d",
+        "text": "until"
+      }
+    ],
+    "correctChoiceId": "q33-a",
+    "explanation": "It has been + 一段時間 + since + 過去式，表示「自從……以來已經……」。"
+  },
+  {
+    "id": 34,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "The famous author is ______ to have been very shy in his youth, yet he gave inspiring public speeches later in life.",
+    "choices": [
+      {
+        "id": "q34-a",
+        "text": "called"
+      },
+      {
+        "id": "q34-b",
+        "text": "named"
+      },
+      {
+        "id": "q34-c",
+        "text": "said"
+      },
+      {
+        "id": "q34-d",
+        "text": "told"
+      }
+    ],
+    "correctChoiceId": "q34-c",
+    "explanation": "S + be said to V＝據說……；to have been 表示較早發生的狀態。"
+  },
+  {
+    "id": 35,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "Fixing the Sphinx, however, is not an easy job. It ______ several years of planning before the work begins.",
+    "choices": [
+      {
+        "id": "q35-a",
+        "text": "spends"
+      },
+      {
+        "id": "q35-b",
+        "text": "takes"
+      },
+      {
+        "id": "q35-c",
+        "text": "costs"
+      },
+      {
+        "id": "q35-d",
+        "text": "uses"
+      }
+    ],
+    "correctChoiceId": "q35-b",
+    "explanation": "It takes + 時間 + to V。"
+  },
+  {
+    "id": 36,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "Many office workers find ______ difficult to balance work and family life in modern society.",
+    "choices": [
+      {
+        "id": "q36-a",
+        "text": "this"
+      },
+      {
+        "id": "q36-b",
+        "text": "that"
+      },
+      {
+        "id": "q36-c",
+        "text": "it"
+      },
+      {
+        "id": "q36-d",
+        "text": "which"
+      }
+    ],
+    "correctChoiceId": "q36-c",
+    "explanation": "find + it + adj. + to V；it 是虛受詞。"
+  },
+  {
+    "id": 37,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "Health is more valuable to us than wealth, and yet ______ often attracts more attention.",
+    "choices": [
+      {
+        "id": "q37-a",
+        "text": "the above"
+      },
+      {
+        "id": "q37-b",
+        "text": "the former"
+      },
+      {
+        "id": "q37-c",
+        "text": "the following"
+      },
+      {
+        "id": "q37-d",
+        "text": "the latter"
+      }
+    ],
+    "correctChoiceId": "q37-d",
+    "explanation": "the former＝前者；the latter＝後者。此題 wealth 是後者。"
+  },
+  {
+    "id": 38,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "As the flights grew longer, a new set of two collection bags was devised, ______ for liquid wastes and the other for solid wastes.",
+    "choices": [
+      {
+        "id": "q38-a",
+        "text": "the one"
+      },
+      {
+        "id": "q38-b",
+        "text": "someone"
+      },
+      {
+        "id": "q38-c",
+        "text": "no one"
+      },
+      {
+        "id": "q38-d",
+        "text": "one"
+      }
+    ],
+    "correctChoiceId": "q38-d",
+    "explanation": "兩者可使用 one...the other...。"
+  },
+  {
+    "id": 39,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "The island is surrounded by about 5,000 other islands, some of ______ are just rocks sticking out of the ground.",
+    "choices": [
+      {
+        "id": "q39-a",
+        "text": "them"
+      },
+      {
+        "id": "q39-b",
+        "text": "that"
+      },
+      {
+        "id": "q39-c",
+        "text": "those"
+      },
+      {
+        "id": "q39-d",
+        "text": "which"
+      }
+    ],
+    "correctChoiceId": "q39-d",
+    "explanation": "介系詞 of 後接 which，形成 some of which。"
+  },
+  {
+    "id": 40,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "______ speaks without permission in the classroom will be punished.",
+    "choices": [
+      {
+        "id": "q40-a",
+        "text": "Those who"
+      },
+      {
+        "id": "q40-b",
+        "text": "Such as"
+      },
+      {
+        "id": "q40-c",
+        "text": "They who"
+      },
+      {
+        "id": "q40-d",
+        "text": "Whoever"
+      }
+    ],
+    "correctChoiceId": "q40-d",
+    "explanation": "Whoever＝anyone who，表示「任何……的人」，整個名詞子句作主詞。"
+  },
+  {
+    "id": 41,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It was thoughtful ______ Mike to drive Mary home after the party.",
+    "choices": [
+      {
+        "id": "q41-a",
+        "text": "for"
+      },
+      {
+        "id": "q41-b",
+        "text": "about"
+      },
+      {
+        "id": "q41-c",
+        "text": "to"
+      },
+      {
+        "id": "q41-d",
+        "text": "of"
+      }
+    ],
+    "correctChoiceId": "q41-d",
+    "explanation": "thoughtful 描述人的行為，使用 It was thoughtful of + 人 + to V。"
+  },
+  {
+    "id": 42,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It was when the teacher entered the classroom ______ the noisy students finally became quiet.",
+    "choices": [
+      {
+        "id": "q42-a",
+        "text": "and"
+      },
+      {
+        "id": "q42-b",
+        "text": "what"
+      },
+      {
+        "id": "q42-c",
+        "text": "that"
+      },
+      {
+        "id": "q42-d",
+        "text": "as"
+      }
+    ],
+    "correctChoiceId": "q42-c",
+    "explanation": "強調句 It was + 被強調部分 + that...。"
+  },
+  {
+    "id": 43,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "He finds it easy ______ English as a second language.",
+    "choices": [
+      {
+        "id": "q43-a",
+        "text": "to learn"
+      },
+      {
+        "id": "q43-b",
+        "text": "learning"
+      },
+      {
+        "id": "q43-c",
+        "text": "learned"
+      },
+      {
+        "id": "q43-d",
+        "text": "learns"
+      }
+    ],
+    "correctChoiceId": "q43-a",
+    "explanation": "find it + adj. + to V。 find it easy to learn 表示發現學習某事很容易；不定詞 to learn 是真正的受詞。"
+  },
+  {
+    "id": 44,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It usually ______ months for an amateur runner to prepare for a full marathon.",
+    "choices": [
+      {
+        "id": "q44-a",
+        "text": "spends"
+      },
+      {
+        "id": "q44-b",
+        "text": "costs"
+      },
+      {
+        "id": "q44-c",
+        "text": "takes"
+      },
+      {
+        "id": "q44-d",
+        "text": "inquires"
+      }
+    ],
+    "correctChoiceId": "q44-c",
+    "explanation": "It takes + 時間 + for 人 + to V。"
+  },
+  {
+    "id": 45,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "The old factory ______ ever since the company closed down five years ago.",
+    "choices": [
+      {
+        "id": "q45-a",
+        "text": "was vacant"
+      },
+      {
+        "id": "q45-b",
+        "text": "was deserted"
+      },
+      {
+        "id": "q45-c",
+        "text": "has deserted"
+      },
+      {
+        "id": "q45-d",
+        "text": "has been deserted"
+      }
+    ],
+    "correctChoiceId": "q45-d",
+    "explanation": "ever since 搭配現在完成式；factory 是被荒廢，因此使用 has been deserted。"
+  },
+  {
+    "id": 46,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "Telling the truth is useful under some circumstances and terribly hurtful under ______.",
+    "choices": [
+      {
+        "id": "q46-a",
+        "text": "the other"
+      },
+      {
+        "id": "q46-b",
+        "text": "other"
+      },
+      {
+        "id": "q46-c",
+        "text": "others"
+      },
+      {
+        "id": "q46-d",
+        "text": "another"
+      }
+    ],
+    "correctChoiceId": "q46-c",
+    "explanation": "some...others...＝一些……其他一些……。"
+  },
+  {
+    "id": 47,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "The density of convenience stores in Taiwan is higher than ______ in any European country.",
+    "choices": [
+      {
+        "id": "q47-a",
+        "text": "one"
+      },
+      {
+        "id": "q47-b",
+        "text": "that"
+      },
+      {
+        "id": "q47-c",
+        "text": "it"
+      },
+      {
+        "id": "q47-d",
+        "text": "this"
+      }
+    ],
+    "correctChoiceId": "q47-b",
+    "explanation": "that 代替前面已提過的單數／不可數名詞 density。"
+  },
+  {
+    "id": 48,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "Making a promise is one thing and actually keeping it is ______.",
+    "choices": [
+      {
+        "id": "q48-a",
+        "text": "the other"
+      },
+      {
+        "id": "q48-b",
+        "text": "another"
+      },
+      {
+        "id": "q48-c",
+        "text": "others"
+      },
+      {
+        "id": "q48-d",
+        "text": "the others"
+      }
+    ],
+    "correctChoiceId": "q48-b",
+    "explanation": "one thing...another＝一回事……又是另一回事。"
+  },
+  {
+    "id": 49,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It was kind ______ her father to let me use his car that night.",
+    "choices": [
+      {
+        "id": "q49-a",
+        "text": "with"
+      },
+      {
+        "id": "q49-b",
+        "text": "to"
+      },
+      {
+        "id": "q49-c",
+        "text": "for"
+      },
+      {
+        "id": "q49-d",
+        "text": "of"
+      }
+    ],
+    "correctChoiceId": "q49-d",
+    "explanation": "kind 描述人的行為，使用 of + 人。"
+  },
+  {
+    "id": 50,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "A: Is ______ useful to learn a second language?\nB: Of course.",
+    "choices": [
+      {
+        "id": "q50-a",
+        "text": "it"
+      },
+      {
+        "id": "q50-b",
+        "text": "he"
+      },
+      {
+        "id": "q50-c",
+        "text": "this"
+      },
+      {
+        "id": "q50-d",
+        "text": "that"
+      }
+    ],
+    "correctChoiceId": "q50-a",
+    "explanation": "It is + adj. + to V；it 為虛主詞。"
+  },
+  {
+    "id": 51,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "When the results of the exams came out, some were happy, and ______ were sad.",
+    "choices": [
+      {
+        "id": "q51-a",
+        "text": "other"
+      },
+      {
+        "id": "q51-b",
+        "text": "the other"
+      },
+      {
+        "id": "q51-c",
+        "text": "others"
+      },
+      {
+        "id": "q51-d",
+        "text": "each other"
+      }
+    ],
+    "correctChoiceId": "q51-c",
+    "explanation": "some...others...；others 可獨立作代名詞。"
+  },
+  {
+    "id": 52,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "It is I that ______ responsible for this accident. It is all my fault.",
+    "choices": [
+      {
+        "id": "q52-a",
+        "text": "is"
+      },
+      {
+        "id": "q52-b",
+        "text": "be"
+      },
+      {
+        "id": "q52-c",
+        "text": "am"
+      },
+      {
+        "id": "q52-d",
+        "text": "are"
+      }
+    ],
+    "correctChoiceId": "q52-c",
+    "explanation": "強調句中 that 子句動詞與被強調的主詞一致；I 搭配 am。"
+  },
+  {
+    "id": 53,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "Mr. Lin has two sons. One is very hard-working, but ______ is very lazy.",
+    "choices": [
+      {
+        "id": "q53-a",
+        "text": "another"
+      },
+      {
+        "id": "q53-b",
+        "text": "other"
+      },
+      {
+        "id": "q53-c",
+        "text": "the one"
+      },
+      {
+        "id": "q53-d",
+        "text": "the other"
+      }
+    ],
+    "correctChoiceId": "q53-d",
+    "explanation": "明確只有兩個時使用 one...the other...。"
+  },
+  {
+    "id": 54,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "We often ______ it for granted that the water we drink is clean.",
+    "choices": [
+      {
+        "id": "q54-a",
+        "text": "take"
+      },
+      {
+        "id": "q54-b",
+        "text": "make"
+      },
+      {
+        "id": "q54-c",
+        "text": "let"
+      },
+      {
+        "id": "q54-d",
+        "text": "do"
+      }
+    ],
+    "correctChoiceId": "q54-a",
+    "explanation": "take it for granted that...＝視……為理所當然。"
+  },
+  {
+    "id": 55,
+    "category": "grammar",
+    "sourceType": "original",
+    "question": "The boy spent most of his time ______ around and doing nothing meaningful.",
+    "choices": [
+      {
+        "id": "q55-a",
+        "text": "fooling"
+      },
+      {
+        "id": "q55-b",
+        "text": "fooled"
+      },
+      {
+        "id": "q55-c",
+        "text": "fool"
+      },
+      {
+        "id": "q55-d",
+        "text": "to fooling"
+      }
+    ],
+    "correctChoiceId": "q55-a",
+    "explanation": "spend + 時間 + V-ing。"
+  },
+  {
+    "id": 56,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It was very generous ______ Mr. Chen to donate so much money to the school.",
+    "choices": [
+      {
+        "id": "q56-a",
+        "text": "for"
+      },
+      {
+        "id": "q56-b",
+        "text": "with"
+      },
+      {
+        "id": "q56-c",
+        "text": "of"
+      },
+      {
+        "id": "q56-d",
+        "text": "at"
+      }
+    ],
+    "correctChoiceId": "q56-c",
+    "explanation": "generous 描述人的行為，使用 of + 人。"
+  },
+  {
+    "id": 57,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It was my sister ______ first encouraged me to learn how to play the guitar.",
+    "choices": [
+      {
+        "id": "q57-a",
+        "text": "who"
+      },
+      {
+        "id": "q57-b",
+        "text": "what"
+      },
+      {
+        "id": "q57-c",
+        "text": "when"
+      },
+      {
+        "id": "q57-d",
+        "text": "where"
+      }
+    ],
+    "correctChoiceId": "q57-a",
+    "explanation": "強調人物 my sister 時可使用 who。"
+  },
+  {
+    "id": 58,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It has been almost ten years ______ our family moved to Taichung.",
+    "choices": [
+      {
+        "id": "q58-a",
+        "text": "until"
+      },
+      {
+        "id": "q58-b",
+        "text": "since"
+      },
+      {
+        "id": "q58-c",
+        "text": "after"
+      },
+      {
+        "id": "q58-d",
+        "text": "that"
+      }
+    ],
+    "correctChoiceId": "q58-b",
+    "explanation": "It has been + 時間 + since + 過去式。"
+  },
+  {
+    "id": 59,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "The old castle is ______ to have been built more than five hundred years ago.",
+    "choices": [
+      {
+        "id": "q59-a",
+        "text": "told"
+      },
+      {
+        "id": "q59-b",
+        "text": "spoken"
+      },
+      {
+        "id": "q59-c",
+        "text": "said"
+      },
+      {
+        "id": "q59-d",
+        "text": "called"
+      }
+    ],
+    "correctChoiceId": "q59-c",
+    "explanation": "be said to have been built＝據說已於過去被建造。"
+  },
+  {
+    "id": 60,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It usually ______ about twenty minutes to walk from my house to the station.",
+    "choices": [
+      {
+        "id": "q60-a",
+        "text": "spends"
+      },
+      {
+        "id": "q60-b",
+        "text": "costs"
+      },
+      {
+        "id": "q60-c",
+        "text": "uses"
+      },
+      {
+        "id": "q60-d",
+        "text": "takes"
+      }
+    ],
+    "correctChoiceId": "q60-d",
+    "explanation": "It takes + 時間 + to V。"
+  },
+  {
+    "id": 61,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Many teenagers find ______ difficult to get enough sleep during exam week.",
+    "choices": [
+      {
+        "id": "q61-a",
+        "text": "that"
+      },
+      {
+        "id": "q61-b",
+        "text": "it"
+      },
+      {
+        "id": "q61-c",
+        "text": "this"
+      },
+      {
+        "id": "q61-d",
+        "text": "which"
+      }
+    ],
+    "correctChoiceId": "q61-b",
+    "explanation": "find it difficult to V；it 為虛受詞。"
+  },
+  {
+    "id": 62,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Between health and money, I value ______ more because money cannot buy a healthy body.",
+    "choices": [
+      {
+        "id": "q62-a",
+        "text": "the latter"
+      },
+      {
+        "id": "q62-b",
+        "text": "the former"
+      },
+      {
+        "id": "q62-c",
+        "text": "another"
+      },
+      {
+        "id": "q62-d",
+        "text": "the other"
+      }
+    ],
+    "correctChoiceId": "q62-b",
+    "explanation": "health 是前者，因此使用 the former。"
+  },
+  {
+    "id": 63,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "I bought two notebooks, ______ for English and the other for math.",
+    "choices": [
+      {
+        "id": "q63-a",
+        "text": "one"
+      },
+      {
+        "id": "q63-b",
+        "text": "another"
+      },
+      {
+        "id": "q63-c",
+        "text": "other"
+      },
+      {
+        "id": "q63-d",
+        "text": "some"
+      }
+    ],
+    "correctChoiceId": "q63-a",
+    "explanation": "兩者使用 one...the other...。"
+  },
+  {
+    "id": 64,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Our school has several clubs, some of ______ meet after school on Fridays.",
+    "choices": [
+      {
+        "id": "q64-a",
+        "text": "them"
+      },
+      {
+        "id": "q64-b",
+        "text": "that"
+      },
+      {
+        "id": "q64-c",
+        "text": "which"
+      },
+      {
+        "id": "q64-d",
+        "text": "those"
+      }
+    ],
+    "correctChoiceId": "q64-c",
+    "explanation": "some of which＝其中一些；which 指前面的 clubs。"
+  },
+  {
+    "id": 65,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "______ finishes the task first may leave the classroom early.",
+    "choices": [
+      {
+        "id": "q65-a",
+        "text": "Those"
+      },
+      {
+        "id": "q65-b",
+        "text": "Whoever"
+      },
+      {
+        "id": "q65-c",
+        "text": "They who"
+      },
+      {
+        "id": "q65-d",
+        "text": "Someone"
+      }
+    ],
+    "correctChoiceId": "q65-b",
+    "explanation": "Whoever finishes...＝任何先完成的人；整個名詞子句作主詞。"
+  },
+  {
+    "id": 66,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It was careless ______ me to leave my phone on the bus.",
+    "choices": [
+      {
+        "id": "q66-a",
+        "text": "for"
+      },
+      {
+        "id": "q66-b",
+        "text": "with"
+      },
+      {
+        "id": "q66-c",
+        "text": "to"
+      },
+      {
+        "id": "q66-d",
+        "text": "of"
+      }
+    ],
+    "correctChoiceId": "q66-d",
+    "explanation": "careless 描述人的行為，因此使用 of + 人。"
+  },
+  {
+    "id": 67,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It was at the night market ______ I first met my best friend.",
+    "choices": [
+      {
+        "id": "q67-a",
+        "text": "what"
+      },
+      {
+        "id": "q67-b",
+        "text": "which"
+      },
+      {
+        "id": "q67-c",
+        "text": "that"
+      },
+      {
+        "id": "q67-d",
+        "text": "where"
+      }
+    ],
+    "correctChoiceId": "q67-c",
+    "explanation": "強調地點 at the night market 時，強調句仍使用 that。"
+  },
+  {
+    "id": 68,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Most students find it helpful ______ new vocabulary in complete sentences.",
+    "choices": [
+      {
+        "id": "q68-a",
+        "text": "practice"
+      },
+      {
+        "id": "q68-b",
+        "text": "practiced"
+      },
+      {
+        "id": "q68-c",
+        "text": "to practice"
+      },
+      {
+        "id": "q68-d",
+        "text": "practicing"
+      }
+    ],
+    "correctChoiceId": "q68-c",
+    "explanation": "find it helpful to V。 以 it 作虛受詞，真正受詞是不定詞 to practice；表示發現練習單字很有幫助。"
+  },
+  {
+    "id": 69,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It ______ several months to prepare for an important international competition.",
+    "choices": [
+      {
+        "id": "q69-a",
+        "text": "spends"
+      },
+      {
+        "id": "q69-b",
+        "text": "takes"
+      },
+      {
+        "id": "q69-c",
+        "text": "costs"
+      },
+      {
+        "id": "q69-d",
+        "text": "pays"
+      }
+    ],
+    "correctChoiceId": "q69-b",
+    "explanation": "It takes + 時間 + to V。"
+  },
+  {
+    "id": 70,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "The bridge ______ several times since it was first built in 1950.",
+    "choices": [
+      {
+        "id": "q70-a",
+        "text": "repaired"
+      },
+      {
+        "id": "q70-b",
+        "text": "was repaired"
+      },
+      {
+        "id": "q70-c",
+        "text": "has repaired"
+      },
+      {
+        "id": "q70-d",
+        "text": "has been repaired"
+      }
+    ],
+    "correctChoiceId": "q70-d",
+    "explanation": "since 搭配現在完成式；bridge 是被修理，因此使用 has been repaired。"
+  },
+  {
+    "id": 71,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Some students enjoy studying alone, while ______ prefer studying with friends.",
+    "choices": [
+      {
+        "id": "q71-a",
+        "text": "another"
+      },
+      {
+        "id": "q71-b",
+        "text": "other"
+      },
+      {
+        "id": "q71-c",
+        "text": "others"
+      },
+      {
+        "id": "q71-d",
+        "text": "the other"
+      }
+    ],
+    "correctChoiceId": "q71-c",
+    "explanation": "some...others... 表示部分學生與其他學生的對比。"
+  },
+  {
+    "id": 72,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "The weather in Kaohsiung is usually warmer than ______ in Taipei during winter.",
+    "choices": [
+      {
+        "id": "q72-a",
+        "text": "that"
+      },
+      {
+        "id": "q72-b",
+        "text": "one"
+      },
+      {
+        "id": "q72-c",
+        "text": "it"
+      },
+      {
+        "id": "q72-d",
+        "text": "this"
+      }
+    ],
+    "correctChoiceId": "q72-a",
+    "explanation": "that 代替不可數名詞 weather。"
+  },
+  {
+    "id": 73,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Buying a pet is one thing; taking good care of it for many years is ______.",
+    "choices": [
+      {
+        "id": "q73-a",
+        "text": "other"
+      },
+      {
+        "id": "q73-b",
+        "text": "the others"
+      },
+      {
+        "id": "q73-c",
+        "text": "another"
+      },
+      {
+        "id": "q73-d",
+        "text": "the other"
+      }
+    ],
+    "correctChoiceId": "q73-c",
+    "explanation": "one thing...another＝一回事……另一回事。"
+  },
+  {
+    "id": 74,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It was very brave ______ the little girl to speak up when she saw someone being bullied.",
+    "choices": [
+      {
+        "id": "q74-a",
+        "text": "for"
+      },
+      {
+        "id": "q74-b",
+        "text": "of"
+      },
+      {
+        "id": "q74-c",
+        "text": "with"
+      },
+      {
+        "id": "q74-d",
+        "text": "to"
+      }
+    ],
+    "correctChoiceId": "q74-b",
+    "explanation": "brave 描述人的行為，使用 of + 人。"
+  },
+  {
+    "id": 75,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "______ is important to drink enough water when exercising in hot weather.",
+    "choices": [
+      {
+        "id": "q75-a",
+        "text": "That"
+      },
+      {
+        "id": "q75-b",
+        "text": "This"
+      },
+      {
+        "id": "q75-c",
+        "text": "What"
+      },
+      {
+        "id": "q75-d",
+        "text": "It"
+      }
+    ],
+    "correctChoiceId": "q75-d",
+    "explanation": "It is important to V；it 為虛主詞。"
+  },
+  {
+    "id": 76,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Some of the cookies are chocolate, while ______ are strawberry.",
+    "choices": [
+      {
+        "id": "q76-a",
+        "text": "others"
+      },
+      {
+        "id": "q76-b",
+        "text": "another"
+      },
+      {
+        "id": "q76-c",
+        "text": "the other"
+      },
+      {
+        "id": "q76-d",
+        "text": "other"
+      }
+    ],
+    "correctChoiceId": "q76-a",
+    "explanation": "others＝其他一些，可獨立作代名詞。"
+  },
+  {
+    "id": 77,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "It is we that ______ responsible for keeping our classroom clean.",
+    "choices": [
+      {
+        "id": "q77-a",
+        "text": "is"
+      },
+      {
+        "id": "q77-b",
+        "text": "am"
+      },
+      {
+        "id": "q77-c",
+        "text": "are"
+      },
+      {
+        "id": "q77-d",
+        "text": "be"
+      }
+    ],
+    "correctChoiceId": "q77-c",
+    "explanation": "被強調主詞為 we，因此 that 子句動詞使用 are。"
+  },
+  {
+    "id": 78,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "There are two elevators in this building. One is for guests, and ______ is for hotel staff.",
+    "choices": [
+      {
+        "id": "q78-a",
+        "text": "another"
+      },
+      {
+        "id": "q78-b",
+        "text": "other"
+      },
+      {
+        "id": "q78-c",
+        "text": "others"
+      },
+      {
+        "id": "q78-d",
+        "text": "the other"
+      }
+    ],
+    "correctChoiceId": "q78-d",
+    "explanation": "只有兩部電梯，因此使用 one...the other...。"
+  },
+  {
+    "id": 79,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Many people ______ it for granted that they can easily get clean water every day.",
+    "choices": [
+      {
+        "id": "q79-a",
+        "text": "make"
+      },
+      {
+        "id": "q79-b",
+        "text": "take"
+      },
+      {
+        "id": "q79-c",
+        "text": "have"
+      },
+      {
+        "id": "q79-d",
+        "text": "let"
+      }
+    ],
+    "correctChoiceId": "q79-b",
+    "explanation": "take it for granted that... 是固定片語。"
+  },
+  {
+    "id": 80,
+    "category": "grammar",
+    "sourceType": "new",
+    "question": "Lucy spent the entire afternoon ______ for information for her science report.",
+    "choices": [
+      {
+        "id": "q80-a",
+        "text": "searched"
+      },
+      {
+        "id": "q80-b",
+        "text": "search"
+      },
+      {
+        "id": "q80-c",
+        "text": "searching"
+      },
+      {
+        "id": "q80-d",
+        "text": "to search"
+      }
+    ],
+    "correctChoiceId": "q80-c",
+    "explanation": "spend + 時間 + V-ing，因此使用 searching。"
+  }
+]
