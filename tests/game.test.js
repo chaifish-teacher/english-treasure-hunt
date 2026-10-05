@@ -7,8 +7,6 @@ import {
   sampleWithoutReplacement,
   selectGameQuestions,
   shuffleQuestionChoices,
-  calculateInitialScores,
-  calculateChallengeScores,
   completionPayload,
   gameReducer,
   emptyGame,
@@ -201,49 +199,9 @@ test("five answers required; answers lock and previous checkpoints cannot be edi
     state,
   );
 });
-test("23 initial + 5 rescued = 28 mastery; only seven initial mistakes get one retry", () => {
-  let state = firstAttempt([0, 1, 2, 3, 20, 21, 22]);
-  assert.equal(state.phase, "MISTAKE_INTRO");
-  const initial = calculateInitialScores(state.questions, state.answers);
-  assert.equal(initial.vocabularyCorrect, 16);
-  assert.equal(initial.grammarCorrect, 7);
-  assert.equal(initial.initialCorrect, 23);
-  assert.equal(initial.initialWrong, 7);
-  assert.deepEqual(
-    state.challengeQuestions.map((q) => q.id),
-    initial.mistakes.map((q) => q.id),
-  );
-  state = gameReducer(state, { type: "BEGIN_CHALLENGE" });
-  assert.equal(
-    gameReducer(state, {
-      type: "SUBMIT_CHALLENGE",
-      id: state.challengeQuestions[0].id,
-    }),
-    state,
-  );
-  for (let i = 0; i < 7; i++) {
-    const q = state.challengeQuestions[i];
-    const choiceId =
-      i < 5
-        ? q.correctChoiceId
-        : q.choices.find((c) => c.id !== q.correctChoiceId).id;
-    state = gameReducer(state, {
-      type: "SELECT_CHALLENGE",
-      id: q.id,
-      choiceId,
-    });
-    state = gameReducer(state, { type: "SUBMIT_CHALLENGE", id: q.id });
-    assert.equal(
-      gameReducer(state, { type: "SUBMIT_CHALLENGE", id: q.id }),
-      state,
-    );
-  }
+test("30 answers go straight to results, with original scores and no challenge credit", () => {
+  const state = firstAttempt([0, 1, 2, 3, 20, 21, 22]);
   assert.equal(state.phase, "FINAL_RESULT");
-  assert.equal(Object.keys(state.challengeAnswers).length, 7);
-  assert.deepEqual(calculateChallengeScores(initial, state.challengeAnswers), {
-    challengeCorrect: 5,
-    finalMasteryCorrect: 28,
-  });
   assert.deepEqual(completionPayload(state), {
     action: "complete",
     gameId: "original-game-id",
@@ -251,27 +209,36 @@ test("23 initial + 5 rescued = 28 mastery; only seven initial mistakes get one r
     grammarScore: "7/10",
     initialScore: "23/30",
     mistakeCount: 7,
-    mistakeChallengeScore: "5/7",
-    finalMasteryScore: "28/30",
+    mistakeChallengeScore: "0/0",
+    finalMasteryScore: "23/30",
   });
-  assert.equal(
-    calculateInitialScores(state.questions, state.answers).initialCorrect,
-    23,
-  );
+  for (const type of [
+    "BEGIN_CHALLENGE",
+    "SELECT_CHALLENGE",
+    "SUBMIT_CHALLENGE",
+  ]) {
+    assert.equal(
+      gameReducer(state, { type, id: state.questions[0].id }),
+      state,
+    );
+  }
 });
-test("perfect 30/30 skips challenge; zero mistakes produces 0/0", () => {
+test("perfect 30/30 retains every answered question and submits the same total", () => {
   const state = firstAttempt();
   assert.equal(state.phase, "FINAL_RESULT");
-  assert.equal(state.challengeQuestions.length, 0);
+  assert.equal(state.questions.length, 30);
+  assert.equal(Object.keys(state.answers).length, 30);
   assert.equal(completionPayload(state).mistakeChallengeScore, "0/0");
   assert.equal(completionPayload(state).finalMasteryScore, "30/30");
 });
-test("all-wrong case and unrecovered mistakes remain valid; no third attempt", () => {
+test("all 30 wrong answers still go straight to results and retain every answer", () => {
   const state = firstAttempt(Array.from({ length: 30 }, (_, i) => i));
-  const initial = calculateInitialScores(state.questions, state.answers);
-  assert.equal(initial.initialCorrect, 0);
-  assert.equal(state.challengeQuestions.length, 30);
-  assert.equal(calculateChallengeScores(initial, {}).finalMasteryCorrect, 0);
+  assert.equal(state.phase, "FINAL_RESULT");
+  assert.equal(Object.keys(state.answers).length, 30);
+  assert.equal(completionPayload(state).initialScore, "0/30");
+  assert.equal(completionPayload(state).mistakeCount, 30);
+  assert.equal(completionPayload(state).mistakeChallengeScore, "0/0");
+  assert.equal(completionPayload(state).finalMasteryScore, "0/30");
 });
 test("Play Again clears answers and scores but retains identity for the new start; Exit clears everything", () => {
   const finished = firstAttempt();
@@ -282,7 +249,6 @@ test("Play Again clears answers and scores but retains identity for the new star
   assert.deepEqual(state.identity, finished.identity);
   assert.equal(state.gameId, null);
   assert.deepEqual(state.answers, {});
-  assert.deepEqual(state.challengeAnswers, {});
   state = gameReducer(state, {
     type: "START_SUCCESS",
     gameId: "new-game-id",

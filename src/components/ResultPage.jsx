@@ -1,7 +1,4 @@
-import {
-  calculateInitialScores,
-  calculateChallengeScores,
-} from "../lib/game.js";
+import { calculateInitialScores } from "../lib/game.js";
 import { Icon, Explorer, IslandScene } from "./Art.jsx";
 import { Bilingual, ActionButton } from "./UI.jsx";
 
@@ -13,32 +10,26 @@ export default function ResultPage({
   onExit,
 }) {
   const initial = calculateInitialScores(state.questions, state.answers);
-  const final = calculateChallengeScores(initial, state.challengeAnswers);
   const perfect = initial.initialCorrect === 30;
   const encouragement = perfect
     ? [
         "Every clue solved. The legendary treasure is yours!",
         "所有線索一次解開！傳說中的寶藏屬於你！",
       ]
-    : final.finalMasteryCorrect === 30
+    : initial.initialCorrect >= 25
       ? [
-          "Amazing! You found the legendary treasure!",
-          "太厲害了！你成功找到傳說中的寶藏！",
+          "Great adventure! You’re close to mastering these skills.",
+          "很棒的冒險！你已經快要完全掌握這些考點了！",
         ]
-      : final.finalMasteryCorrect >= 25
+      : initial.initialCorrect >= 18
         ? [
-            "Great adventure! You’re close to mastering these skills.",
-            "很棒的冒險！你已經快要完全掌握這些考點了！",
+            "Nice work! Every clue you solved made you stronger.",
+            "做得很好！每解開一個線索，你的英文實力就更進一步！",
           ]
-        : final.finalMasteryCorrect >= 18
-          ? [
-              "Nice work! Every clue you solved made you stronger.",
-              "做得很好！每解開一個線索，你的英文實力就更進一步！",
-            ]
-          : [
-              "Review the clues and try another adventure!",
-              "尋寶還沒有結束！複習線索後，再挑戰一次吧！",
-            ];
+        : [
+            "Review the clues and try another adventure!",
+            "尋寶還沒有結束！複習線索後，再挑戰一次吧！",
+          ];
   const answerText = (q, answer) =>
     q.choices.find((c) => c.id === answer)?.text ?? "—";
   return (
@@ -59,9 +50,9 @@ export default function ResultPage({
         <div className="mastery">
           <Icon name="gem" size={36} />
           <div>
-            <Bilingual en="Final Mastery" zh="最終掌握成績" />
+            <Bilingual en="Total Score" zh="總成績" />
             <strong data-testid="mastery">
-              {final.finalMasteryCorrect}
+              {initial.initialCorrect}
               <small>/30</small>
             </strong>
           </div>
@@ -71,12 +62,6 @@ export default function ResultPage({
           {[
             ["Vocabulary", "單字成績", `${initial.vocabularyCorrect}/20`],
             ["Grammar", "文法成績", `${initial.grammarCorrect}/10`],
-            ["Initial Score", "初次總成績", `${initial.initialCorrect}/30`],
-            [
-              "Mistake Challenge",
-              "錯題挑戰",
-              `${final.challengeCorrect}/${initial.initialWrong}`,
-            ],
           ].map(([en, zh, score]) => (
             <div className="score-cell" key={en}>
               <Bilingual en={en} zh={zh} />
@@ -85,7 +70,7 @@ export default function ResultPage({
           ))}
         </div>
         <p className="initial-counts">
-          First adventure · 初次作答{" "}
+          Answer Summary · 答題狀況{" "}
           <span>
             Correct 答對 <b>{initial.initialCorrect}</b>
           </span>
@@ -124,63 +109,63 @@ export default function ResultPage({
           )}
         </div>
       </section>
-      {initial.mistakes.length > 0 && (
-        <section className="review-section">
-          <h2>
-            <Bilingual
-              en="Clues worth another look"
-              zh="錯題回顧・把線索帶回家"
-            />
-          </h2>
-          <p>
-            Every missed clue, even the ones you solved later.
-            每道初次答錯的題目，都值得再看一次。
-          </p>
-          {initial.mistakes.map((q, index) => (
-            <details className="review-card" key={q.id}>
-              <summary>
-                <span className="review-index">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span>
-                  <small className="review-question-label">Question 題目</small>
-                  <span lang="en">{q.question}</span>
-                </span>
-                <span className="expand-icon" aria-hidden="true">
-                  +
-                </span>
-              </summary>
-              <div className="review-content">
-                <dl>
-                  <dt>
-                    <Bilingual en="Your First Answer" zh="第一次作答" />
-                  </dt>
-                  <dd lang="en">{answerText(q, state.answers[q.id])}</dd>
-                  <dt>
-                    <Bilingual
-                      en="Mistake Challenge Answer"
-                      zh="錯題挑戰答案"
-                    />
-                  </dt>
-                  <dd lang="en">
-                    {answerText(q, state.challengeAnswers[q.id])}
-                  </dd>
-                  <dt>
-                    <Bilingual en="Correct Answer" zh="正確答案" />
-                  </dt>
-                  <dd className="answer-reveal" lang="en">
-                    {answerText(q, q.correctChoiceId)}
-                  </dd>
-                </dl>
-                <div className="explanation">
-                  <Bilingual en="Explanation" zh="解析" />
-                  <p>{q.explanation}</p>
-                </div>
+      <section className="review-section">
+        <h2>
+          <Bilingual en="Your Adventure Review" zh="全部題目回顧" />
+        </h2>
+        <p>
+          All 30 clues, your answers, and explanations. 本次全部 30
+          題都在這裡；展開題目查看作答、正確答案與解析。
+        </p>
+        {state.questions.map((q, index) => (
+          <details className="review-card" key={q.id} data-question-id={q.id}>
+            <summary>
+              <span className="review-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span>
+                <small className="review-question-label">Question 題目</small>
+                <span lang="en">{q.question}</span>
+              </span>
+              <span
+                className={`answer-status ${state.answers[q.id] === q.correctChoiceId ? "correct" : "incorrect"}`}
+              >
+                {state.answers[q.id] === q.correctChoiceId
+                  ? "Correct 答對"
+                  : "Incorrect 答錯"}
+              </span>
+              <span className="expand-icon" aria-hidden="true">
+                +
+              </span>
+            </summary>
+            <div className="review-content">
+              <ol className="review-choices">
+                {q.choices.map((choice, i) => (
+                  <li key={choice.id} lang="en">
+                    {"ABCD"[i]}. {choice.text}
+                  </li>
+                ))}
+              </ol>
+              <dl>
+                <dt>
+                  <Bilingual en="Your Answer" zh="你的答案" />
+                </dt>
+                <dd lang="en">{answerText(q, state.answers[q.id])}</dd>
+                <dt>
+                  <Bilingual en="Correct Answer" zh="正確答案" />
+                </dt>
+                <dd className="answer-reveal" lang="en">
+                  {answerText(q, q.correctChoiceId)}
+                </dd>
+              </dl>
+              <div className="explanation">
+                <Bilingual en="Explanation" zh="解析" />
+                <p>{q.explanation}</p>
               </div>
-            </details>
-          ))}
-        </section>
-      )}
+            </div>
+          </details>
+        ))}
+      </section>
       <div className="result-actions">
         <ActionButton
           en="Play Again"

@@ -57,18 +57,8 @@ export function calculateInitialScores(questions, answers) {
     mistakes,
   };
 }
-export function calculateChallengeScores(initial, answers) {
-  const challengeCorrect = initial.mistakes.filter(
-    (q) => answers[q.id] === q.correctChoiceId,
-  ).length;
-  return {
-    challengeCorrect,
-    finalMasteryCorrect: initial.initialCorrect + challengeCorrect,
-  };
-}
 export function completionPayload(state) {
   const initial = calculateInitialScores(state.questions, state.answers);
-  const challenge = calculateChallengeScores(initial, state.challengeAnswers);
   return {
     action: "complete",
     gameId: state.gameId,
@@ -76,8 +66,9 @@ export function completionPayload(state) {
     grammarScore: `${initial.grammarCorrect}/10`,
     initialScore: `${initial.initialCorrect}/30`,
     mistakeCount: initial.initialWrong,
-    mistakeChallengeScore: `${challenge.challengeCorrect}/${initial.initialWrong}`,
-    finalMasteryScore: `${challenge.finalMasteryCorrect}/30`,
+    // Keep the existing GAS schema; there is no second-attempt stage.
+    mistakeChallengeScore: "0/0",
+    finalMasteryScore: `${initial.initialCorrect}/30`,
   };
 }
 export function emptyGame() {
@@ -88,10 +79,6 @@ export function emptyGame() {
     questions: [],
     answers: {},
     checkpoint: 0,
-    challengeQuestions: [],
-    challengeIndex: 0,
-    challengeAnswers: {},
-    challengeSelection: null,
   };
 }
 export function gameReducer(state, action) {
@@ -155,48 +142,7 @@ export function gameReducer(state, action) {
           phase: checkpoint < 4 ? "VOCABULARY" : "GRAMMAR",
         };
       }
-      const initial = calculateInitialScores(state.questions, state.answers);
-      return {
-        ...state,
-        phase: initial.initialWrong ? "MISTAKE_INTRO" : "FINAL_RESULT",
-        challengeQuestions: initial.mistakes.map((q) =>
-          shuffleQuestionChoices(q),
-        ),
-      };
-    }
-    case "BEGIN_CHALLENGE":
-      return state.phase === "MISTAKE_INTRO"
-        ? { ...state, phase: "MISTAKE_CHALLENGE" }
-        : state;
-    case "SELECT_CHALLENGE": {
-      if (state.phase !== "MISTAKE_CHALLENGE") return state;
-      const q = state.challengeQuestions[state.challengeIndex];
-      if (
-        q.id !== action.id ||
-        !q.choices.some((c) => c.id === action.choiceId)
-      )
-        return state;
-      return { ...state, challengeSelection: action.choiceId };
-    }
-    case "SUBMIT_CHALLENGE": {
-      if (
-        state.phase !== "MISTAKE_CHALLENGE" ||
-        !state.challengeSelection ||
-        state.challengeQuestions[state.challengeIndex].id !== action.id
-      )
-        return state;
-      const challengeAnswers = {
-        ...state.challengeAnswers,
-        [action.id]: state.challengeSelection,
-      };
-      const last = state.challengeIndex === state.challengeQuestions.length - 1;
-      return {
-        ...state,
-        challengeAnswers,
-        challengeSelection: null,
-        challengeIndex: state.challengeIndex + 1,
-        phase: last ? "FINAL_RESULT" : "MISTAKE_CHALLENGE",
-      };
+      return { ...state, phase: "FINAL_RESULT" };
     }
     case "EXIT":
       return emptyGame();

@@ -1382,3 +1382,59 @@ footer span {
   margin-top: 8px;
   color: #5d7059;
 }
+
+.results .score-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+.answer-status {
+  font-size: 11px;
+  font-weight: 650;
+  padding: 5px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.answer-status.correct {
+  color: #29553c;
+  background: #e6efdc;
+}
+.answer-status.incorrect {
+  color: #794020;
+  background: #fae7d5;
+}
+.review-choices {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.review-choices li {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .review-card summary {
+    flex-wrap: wrap;
+  }
+  .review-card summary > span:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+  }
+  .answer-status {
+    white-space: normal;
+    width: 62px;
+    text-align: center;
+    margin-left: 0;
+    font-size: 10px;
+  }
+  .review-card .expand-icon {
+    margin-left: 0;
+  }
+  .review-choices {
+    grid-template-columns: 1fr;
+  }
+}

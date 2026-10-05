@@ -157,7 +157,7 @@ test("required non-empty identity and rapid start taps only create one request",
   expect(requests[0].seatNo).toBe("any-seat");
   expect(requests[0].requestId).toMatch(/^[a-f0-9-]{36}$/);
 });
-test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review, Play Again and Exit", async ({
+test("full adventure goes straight to all-answer review; failed save retries same ID, Play Again and Exit", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -166,53 +166,41 @@ test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review
   const wrongIndexes = new Set([0, 1, 2, 3, 20, 21, 22]);
   const selectedIds = await mainAdventure(page, wrongIndexes);
   await expect(
-    page.getByRole("heading", { name: "Some clues need another look." }),
-  ).toBeVisible();
-  await expect(page.locator("main")).not.toContainText("Initial Score");
-  expect(requests.filter((r) => r.action === "complete")).toHaveLength(0);
-  await page.getByRole("button", { name: "Start Mistake Challenge" }).click();
-  const expectedWrongIds = [...wrongIndexes].map((i) => selectedIds[i]);
-  for (let i = 0; i < 7; i++) {
-    const card = page.locator("fieldset");
-    await expect(card).toHaveCount(1);
-    expect(Number(await card.getAttribute("data-question-id"))).toBe(
-      expectedWrongIds[i],
-    );
-    await expect(card.locator("details.question-hint")).toHaveCount(1);
-    if (i === 0) {
-      await card.getByText("Hint 提示", { exact: false }).click();
-      await expect(card.locator(".hint-content")).toContainText(
-        hints[expectedWrongIds[i]].hint,
-      );
-    }
-    const submit = page.getByRole("button", { name: "Submit & Continue" });
-    await expect(submit).toBeDisabled();
-    await choose(page, card, i < 5);
-    await assertNoOverflow(page);
-    await submit.evaluate((el) => {
-      el.click();
-      el.click();
-    });
-  }
-  await expect(
     page.getByRole("heading", { name: "Adventure Complete!" }),
   ).toBeVisible();
   await expect(page.getByTestId("Vocabulary")).toHaveText("16/20");
   await expect(page.getByTestId("Grammar")).toHaveText("7/10");
-  await expect(page.getByTestId("Initial Score")).toHaveText("23/30");
-  await expect(page.getByTestId("Mistake Challenge")).toHaveText("5/7");
-  await expect(page.getByTestId("mastery")).toHaveText("28/30");
+  await expect(page.getByTestId("mastery")).toHaveText("23/30");
+  await expect(
+    page.getByRole("button", { name: "Start Mistake Challenge" }),
+  ).toHaveCount(0);
   await expect(page.getByRole("status")).toContainText(
     "Your result could not be saved yet.",
   );
-  await expect(page.locator("details")).toHaveCount(7);
+  await expect(page.locator("details.review-card")).toHaveCount(30);
+  await expect(page.locator(".answer-status.correct")).toHaveCount(23);
+  await expect(page.locator(".answer-status.incorrect")).toHaveCount(7);
+  for (let i = 0; i < 30; i++) {
+    const card = page.locator("details.review-card").nth(i);
+    expect(Number(await card.getAttribute("data-question-id"))).toBe(
+      selectedIds[i],
+    );
+    await card.locator("summary").click();
+    const q = bank.get(selectedIds[i]);
+    const expectedChoice = wrongIndexes.has(i)
+      ? q.choices.find((c) => c.id !== q.correctChoiceId)
+      : q.choices.find((c) => c.id === q.correctChoiceId);
+    const answers = card.locator("dd");
+    await expect(answers.nth(0)).toHaveText(expectedChoice.text);
+    await expect(answers.nth(1)).toHaveText(
+      q.choices.find((c) => c.id === q.correctChoiceId).text,
+    );
+    await expect(card.locator(".review-choices li")).toHaveCount(4);
+    await expect(card.locator(".explanation")).toContainText(q.explanation);
+    await card.locator("summary").click();
+  }
   await page.locator("details summary").first().click();
-  await expect(page.locator("details[open]")).toContainText(
-    "Your First Answer",
-  );
-  await expect(page.locator("details[open]")).toContainText(
-    "Mistake Challenge Answer",
-  );
+  await expect(page.locator("details[open]")).toContainText("Your Answer");
   await expect(page.locator("details[open]")).toContainText("Correct Answer");
   await expect(page.locator("details[open]")).toContainText("解析");
   for (const width of [375, 390, 430, 768, 1280]) {
@@ -239,8 +227,8 @@ test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review
     grammarScore: "7/10",
     initialScore: "23/30",
     mistakeCount: 7,
-    mistakeChallengeScore: "5/7",
-    finalMasteryScore: "28/30",
+    mistakeChallengeScore: "0/0",
+    finalMasteryScore: "23/30",
   });
   expect(complete[1]).toEqual(complete[0]);
   await page.getByRole("button", { name: "Play Again" }).click();
@@ -267,7 +255,7 @@ test("full adventure, 7 mistakes, 5 rescued; failed save retries same ID, review
   expect(afterExit.requestId).not.toBe(starts[1].requestId);
   expect(requests.filter((r) => r.action === "complete")).toHaveLength(2);
 });
-test("perfect score skips challenge, saves exactly once under Strict Mode; no completion on rerender", async ({
+test("perfect score reviews all 30 correct questions and saves exactly once", async ({
   page,
 }) => {
   const requests = await mockAPI(page);
@@ -276,13 +264,13 @@ test("perfect score skips challenge, saves exactly once under Strict Mode; no co
   await expect(
     page.getByRole("heading", { name: "Adventure Complete!" }),
   ).toBeVisible();
-  await expect(page.getByTestId("Initial Score")).toHaveText("30/30");
-  await expect(page.getByTestId("Mistake Challenge")).toHaveText("0/0");
   await expect(page.getByTestId("mastery")).toHaveText("30/30");
   await expect(page.getByRole("status")).toContainText(
     "Your result has been saved.",
   );
-  await expect(page.locator("details")).toHaveCount(0);
+  await expect(page.locator("details.review-card")).toHaveCount(30);
+  await expect(page.locator(".answer-status.correct")).toHaveCount(30);
+  await expect(page.locator(".answer-status.incorrect")).toHaveCount(0);
   await page.getByRole("button", { name: "Mute sound" }).click();
   await page.getByRole("button", { name: "Unmute sound" }).click();
   expect(requests.filter((r) => r.action === "complete")).toHaveLength(1);

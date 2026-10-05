@@ -84,7 +84,7 @@ export default function App() {
     document
       .querySelector("[data-page-heading]")
       ?.focus({ preventScroll: true });
-  }, [phase, state.checkpoint, state.challengeIndex]);
+  }, [phase, state.checkpoint]);
   function sound(kind = "button") {
     playSound(kind, muted);
   }
@@ -152,10 +152,10 @@ export default function App() {
     currentPayload.current = null;
   }
   const isLogin = ["LOGIN", "STARTING"].includes(phase);
-  const isChallenge = phase === "MISTAKE_CHALLENGE";
-  const questions = isChallenge
-    ? [state.challengeQuestions[state.challengeIndex]]
-    : state.questions.slice(state.checkpoint * 5, state.checkpoint * 5 + 5);
+  const questions = state.questions.slice(
+    state.checkpoint * 5,
+    state.checkpoint * 5 + 5,
+  );
   const answered = questions.filter((q) => state.answers[q.id]).length;
   const event = events[state.checkpoint];
   return (
@@ -332,28 +332,18 @@ export default function App() {
             <section className="adventure-header">
               <div>
                 <span className="eyebrow">
-                  {isChallenge || phase === "MISTAKE_INTRO"
-                    ? "ONE MORE LOOK · 再找一次線索"
-                    : state.checkpoint < 4
-                      ? "STAGE 01 · 海島探索"
-                      : "STAGE 02 · 古老遺跡"}
+                  {state.checkpoint < 4
+                    ? "STAGE 01 · 海島探索"
+                    : "STAGE 02 · 古老遺跡"}
                 </span>
                 <h1 data-page-heading tabIndex={-1}>
                   <Bilingual
                     en={
-                      isChallenge || phase === "MISTAKE_INTRO"
-                        ? "Mistake Challenge"
-                        : state.checkpoint < 4
-                          ? "Vocabulary Adventure"
-                          : "Grammar Ruins"
+                      state.checkpoint < 4
+                        ? "Vocabulary Adventure"
+                        : "Grammar Ruins"
                     }
-                    zh={
-                      isChallenge || phase === "MISTAKE_INTRO"
-                        ? "錯題挑戰"
-                        : state.checkpoint < 4
-                          ? "單字冒險"
-                          : "文法遺跡"
-                    }
+                    zh={state.checkpoint < 4 ? "單字冒險" : "文法遺跡"}
                   />
                 </h1>
               </div>
@@ -369,9 +359,7 @@ export default function App() {
                 <strong>
                   {phase === "CHECKPOINT"
                     ? (state.checkpoint + 1) * 5
-                    : ["MISTAKE_INTRO", "MISTAKE_CHALLENGE"].includes(phase)
-                      ? 30
-                      : state.checkpoint * 5}{" "}
+                    : state.checkpoint * 5}{" "}
                   / 30
                 </strong>
               </div>
@@ -384,7 +372,6 @@ export default function App() {
                     key={e[0]}
                     className={
                       i < state.checkpoint ||
-                      ["MISTAKE_INTRO", "MISTAKE_CHALLENGE"].includes(phase) ||
                       (phase === "CHECKPOINT" && i === state.checkpoint)
                         ? "visited"
                         : i === state.checkpoint
@@ -440,63 +427,25 @@ export default function App() {
                   }
                 />
               </section>
-            ) : phase === "MISTAKE_INTRO" ? (
-              <section className="event-card mistake-intro">
-                <div className="intro-art">
-                  <Explorer />
-                  <Icon name="map" size={80} />
-                </div>
-                <h2>
-                  <Bilingual
-                    en="Some clues need another look."
-                    zh="有些線索還需要再確認！"
-                  />
-                </h2>
-                <p>
-                  <Bilingual
-                    en="Try the missed questions one more time!"
-                    zh="再挑戰一次剛才答錯的題目吧！每題有一次重答機會。"
-                  />
-                </p>
-                <ActionButton
-                  en="Start Mistake Challenge"
-                  zh="開始錯題挑戰"
-                  onClick={() => advance({ type: "BEGIN_CHALLENGE" })}
-                />
-              </section>
             ) : (
               <>
                 <div className="checkpoint-caption">
                   <span>
-                    <Icon name={isChallenge ? "compass" : event[2]} size={19} />
-                    {isChallenge
-                      ? `Clue ${state.challengeIndex + 1} / ${state.challengeQuestions.length} · 錯題線索`
-                      : `Checkpoint ${state.checkpoint < 4 ? state.checkpoint + 1 : state.checkpoint - 3} / ${state.checkpoint < 4 ? 4 : 2} · 關卡`}
+                    <Icon name={event[2]} size={19} />
+                    {`Checkpoint ${state.checkpoint < 4 ? state.checkpoint + 1 : state.checkpoint - 3} / ${state.checkpoint < 4 ? 4 : 2} · 關卡`}
                   </span>
-                  <small>
-                    {isChallenge
-                      ? "One more try · 再試一次"
-                      : "Choose your clues · 選出你的線索"}
-                  </small>
+                  <small>Choose your clues · 選出你的線索</small>
                 </div>
                 {questions.map((q, i) => (
                   <QuestionCard
-                    key={`${isChallenge ? "challenge" : "initial"}-${q.id}`}
+                    key={q.id}
                     question={q}
-                    number={
-                      isChallenge
-                        ? state.challengeIndex + 1
-                        : state.checkpoint * 5 + i + 1
-                    }
-                    selected={
-                      isChallenge
-                        ? state.challengeSelection
-                        : state.answers[q.id]
-                    }
+                    number={state.checkpoint * 5 + i + 1}
+                    selected={state.answers[q.id]}
                     onSelect={(choiceId) => {
                       sound();
                       transition({
-                        type: isChallenge ? "SELECT_CHALLENGE" : "SELECT",
+                        type: "SELECT",
                         id: q.id,
                         choiceId,
                       });
@@ -505,35 +454,23 @@ export default function App() {
                 ))}
                 <div className="continue-panel">
                   <p>
-                    {isChallenge
-                      ? "Your next clue is waiting. 下一道線索正在等你。"
-                      : `${answered} / 5 clues chosen · 已選擇 ${answered} 道線索`}
+                    {`${answered} / 5 clues chosen · 已選擇 ${answered} 道線索`}
                   </p>
                   <ActionButton
-                    en={
-                      isChallenge ? "Submit & Continue" : "Continue Adventure"
-                    }
-                    zh={isChallenge ? "送出並繼續" : "繼續冒險"}
-                    disabled={
-                      isChallenge ? !state.challengeSelection : answered !== 5
-                    }
+                    en="Continue Adventure"
+                    zh="繼續冒險"
+                    disabled={answered !== 5}
                     onClick={() =>
-                      advance(
-                        isChallenge
-                          ? { type: "SUBMIT_CHALLENGE", id: questions[0].id }
-                          : {
-                              type: "LOCK_CHECKPOINT",
-                              checkpoint: state.checkpoint,
-                            },
-                      )
+                      advance({
+                        type: "LOCK_CHECKPOINT",
+                        checkpoint: state.checkpoint,
+                      })
                     }
                   />
-                  {!isChallenge && (
-                    <small>
-                      All five answers will be locked.
-                      送出後，這五題的答案將鎖定。
-                    </small>
-                  )}
+                  <small>
+                    All five answers will be locked.
+                    送出後，這五題的答案將鎖定。
+                  </small>
                 </div>
               </>
             )}
